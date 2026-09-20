@@ -1,6 +1,9 @@
-# Fighting Cancer with Transcriptomics 2026
-FROM BULK &amp; scRNA-SEQ TO SPATIAL TRANSCRIPTOMICS for FIGHTING CANCER
+# FROM BULK &amp; scRNA-SEQ TO SPATIAL TRANSCRIPTOMICS for FIGHTING CANCER 2026
 
+## Course Introduction
+##
+## Introduction of Next Generation Sequecning (NGS)
+##
 ## MODULE I: Computational Statistical Preparation
 ### BASH
 ### R
