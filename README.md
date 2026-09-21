@@ -6,6 +6,11 @@
 ##
 ## MODULE I: Computational Statistical Preparation
 ### BASH
+#### Lecture 02: Linux Environment & File System Navigation [Hoang – 23/09/2026]
+- Quizzes and homework: Colab Notebook (work in progress).
+- [Lecture slides](https://ht2905.github.io/spatial-transcriptomics-course-2026-lecture-slides/lecture-02/).
+- Youtube record.
+
 ### R
 
 ## MODULE II: Introduction to Bulk RNA-seq
