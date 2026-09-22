@@ -525,64 +525,133 @@ Text Stream Processing &amp; Pipeline Automation</p>
 <h2>How can I run Linux?</h2>
 <p>Knowing which distribution you want is only half the question.</p>
 <p>You also need to decide <strong>how Linux will run on your computer</strong>:</p>
-<div class="cell" data-fig-width="12" data-fig-height="6" data-layout-align="center">
+<div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<svg width="1152" height="576" viewbox="0.00 0.00 367.84 116.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 112)">
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-112 363.84,-112 363.84,4 -4,4"></polygon>
-<!-- Linux -->
-<g id="node1" class="node">
-<title>Linux</title>
-<ellipse fill="none" stroke="black" cx="218.59" cy="-90" rx="34.21" ry="18"></ellipse>
-<text text-anchor="middle" x="218.59" y="-85.8" font-family="Times,serif" font-size="14.00">Linux</text>
-</g>
-<!-- Virtual Machine -->
-<g id="node2" class="node">
-<title>Virtual Machine</title>
-<ellipse fill="none" stroke="black" cx="74.59" cy="-18" rx="74.68" ry="18"></ellipse>
-<text text-anchor="middle" x="74.59" y="-13.8" font-family="Times,serif" font-size="14.00">Virtual Machine</text>
-</g>
-<!-- Linux&#45;&gt;Virtual Machine -->
-<g id="edge1" class="edge">
-<title>Linux-&gt;Virtual Machine</title>
-<path fill="none" stroke="black" d="M194.16,-77.13C172.58,-66.63 140.67,-51.12 115.25,-38.76"></path>
-<polygon fill="black" stroke="black" points="116.73,-35.59 106.2,-34.37 113.67,-41.89 116.73,-35.59"></polygon>
-</g>
-<!-- Dual Boot -->
-<g id="node3" class="node">
-<title>Dual Boot</title>
-<ellipse fill="none" stroke="black" cx="218.59" cy="-18" rx="51.01" ry="18"></ellipse>
-<text text-anchor="middle" x="218.59" y="-13.8" font-family="Times,serif" font-size="14.00">Dual Boot</text>
-</g>
-<!-- Linux&#45;&gt;Dual Boot -->
-<g id="edge2" class="edge">
-<title>Linux-&gt;Dual Boot</title>
-<path fill="none" stroke="black" d="M218.59,-71.7C218.59,-63.98 218.59,-54.71 218.59,-46.11"></path>
-<polygon fill="black" stroke="black" points="222.09,-46.1 218.59,-36.1 215.09,-46.1 222.09,-46.1"></polygon>
-</g>
-<!-- WSL2 -->
-<g id="node4" class="node">
-<title>WSL2</title>
-<ellipse fill="none" stroke="black" cx="323.59" cy="-18" rx="36.5" ry="18"></ellipse>
-<text text-anchor="middle" x="323.59" y="-13.8" font-family="Times,serif" font-size="14.00">WSL2</text>
-</g>
-<!-- Linux&#45;&gt;WSL2 -->
-<g id="edge3" class="edge">
-<title>Linux-&gt;WSL2</title>
-<path fill="none" stroke="black" d="M238.83,-75.5C254.46,-65.08 276.32,-50.51 293.93,-38.78"></path>
-<polygon fill="black" stroke="black" points="296.31,-41.39 302.69,-32.93 292.43,-35.57 296.31,-41.39"></polygon>
-</g>
-</g>
-</svg>
+<p><img data-src="lecture-02_linux-env-file-system-navigation_files/figure-revealjs/mermaid-figure-1.png" style="width:17.93in;height:6in"></p>
 </div>
 <p></p></figure><p></p>
 </div>
 </div>
 </div>
-</section></section>
+</section>
+<section id="method-1-virtual-machine" class="slide level2">
+<h2>Method 1: Virtual Machine</h2>
+<p>A <strong>virtual machine</strong> runs another operating system inside your current operating system.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<p><img data-src="lecture-02_linux-env-file-system-navigation_files/figure-revealjs/mermaid-figure-4.png" style="width:2.98in;height:3in"></p>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Examples of a virtual machine:</p>
+<ul>
+<li>VirtualBox</li>
+<li>VMware</li>
+<li>Hyper-V</li>
+<li>GNOME Boxes</li>
+</ul>
+</section>
+<section id="vms-low-risk-but-with-significant-overhead" class="slide level2">
+<h2>VMs: Low risk, but with significant overhead</h2>
+<p>A <strong>virtual machine</strong> runs another operating system inside your current operating system.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<p><img data-src="lecture-02_linux-env-file-system-navigation_files/figure-revealjs/mermaid-figure-3.png" style="width:2.98in;height:3in"></p>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Advantages</th>
+<th>Disadvantages</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Low risk to the host system</td>
+<td>Consumes additional RAM and CPU</td>
+</tr>
+<tr class="even">
+<td>Linux and Windows / MacOS can run simultaneously</td>
+<td>Requires additional storage</td>
+</tr>
+<tr class="odd">
+<td>Good for experimentation</td>
+<td>Not the full Linux experience</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="method-2-dual-boot" class="slide level2">
+<h2>Method 2: Dual-Boot</h2>
+<p>A <strong>dual-boot system</strong> has two operating systems installed on the same computer.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<p><img data-src="lecture-02_linux-env-file-system-navigation_files/figure-revealjs/mermaid-figure-2.png" style="width:3.9in;height:3.75in"></p>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<table class="caption-top">
+<colgroup>
+<col style="width: 43%">
+<col style="width: 56%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Advantages</th>
+<th>Disadvantages</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Linux runs directly on the hardware</td>
+<td>Requires rebooting to switch</td>
+</tr>
+<tr class="even">
+<td>Excellent performance</td>
+<td>Partitioning requires care</td>
+</tr>
+<tr class="odd">
+<td>Full Linux desktop experience</td>
+<td>Installation mistakes can affect existing data</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="method-3-wsl2-windows-subsystem-for-linux-2" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Method 3: WSL2 (Windows Subsystem for Linux 2)</h2>
+<p><strong>WSL2 uses a lightweight virtual-machine architecture with a real Linux kernel</strong>. It allows Linux environments to run alongside Windows, accessible through Windows Terminal. The command-line experience is similar to working with an HPC cluster via SSH.</p>
+
+<img data-src="assets/wsl-distro-selection.jpg" class="r-stretch"></section>
+<section id="wsl2-vs-traditional-virtual-machines" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">WSL2 vs traditional virtual machines</h2>
+<p>Compared with a traditional virtual machine, <strong>WSL2 has fast startup and very low overhead.</strong> It provides close integration between Windows and Linux, allowing you to use Linux tools alongside your normal Windows applications.</p>
+<p>Windows drives are accessible from Linux under paths such as <code>/mnt/c/</code>, while Linux files can also be accessed from Windows through <code>\\wsl.localhost</code>.</p>
+
+<img data-src="assets/wsl-distro-selection.jpg" class="r-stretch"></section></section>
 <section>
 <section id="terminal-shell-command" class="title-slide slide level1 center">
 <h1>3. Terminal, Shell, Command</h1>
@@ -723,22 +792,32 @@ Text Stream Processing &amp; Pipeline Automation</p>
 <h1>4. The Linux Filesystem</h1>
 
 </section>
-<section id="think-in-trees-not-drives" class="slide level2">
-<h2>Think in trees, not drives</h2>
-<p>Linux starts from a single root directory:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb20-1"><a href="" aria-label="1"></a>/</span>
-<span id="cb20-2"><a href="" aria-label="2"></a>├── home/</span>
-<span id="cb20-3"><a href="" aria-label="3"></a>│   ├── ht2905/</span>
-<span id="cb20-4"><a href="" aria-label="4"></a>│   └── ace/</span>
-<span id="cb20-5"><a href="" aria-label="5"></a>├── etc/</span>
-<span id="cb20-6"><a href="" aria-label="6"></a>├── usr/</span>
-<span id="cb20-7"><a href="" aria-label="7"></a>├── var/</span>
-<span id="cb20-8"><a href="" aria-label="8"></a>└── tmp/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
 <section id="filesystem-root" class="slide level2">
 <h2><code>/</code> = filesystem root</h2>
-<p>Windows commonly presents drive letters like C: and D:</p>
+<p>Windows commonly uses drive letters like C: and D:</p>
 <p>Linux presents <strong>one filesystem tree</strong> rooted at <code>/</code>. We often think of it as a tree with branches and leaves.</p>
+<p><br></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="" aria-label="1"></a><span class="ex">/</span></span>
+<span id="cb20-2"><a href="" aria-label="2"></a><span class="ex">├──</span> home/</span>
+<span id="cb20-3"><a href="" aria-label="3"></a><span class="ex">│</span>   ├── ht2905/</span>
+<span id="cb20-4"><a href="" aria-label="4"></a><span class="ex">│</span>   └── ace/</span>
+<span id="cb20-5"><a href="" aria-label="5"></a><span class="ex">├──</span> etc/</span>
+<span id="cb20-6"><a href="" aria-label="6"></a><span class="ex">├──</span> usr/</span>
+<span id="cb20-7"><a href="" aria-label="7"></a><span class="ex">├──</span> var/</span>
+<span id="cb20-8"><a href="" aria-label="8"></a><span class="ex">└──</span> tmp/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>As a bioinformatician, you will spend most of your time working in your $HOME directory (<code>/home/&lt;user&gt;</code>), not the filesystem root (<code>/</code>).</p>
+</div>
+</div>
+</div>
 </section>
 <section id="where-is-my-home" class="slide level2">
 <h2>Where is my home?</h2>
@@ -778,6 +857,7 @@ Text Stream Processing &amp; Pipeline Automation</p>
 </tr>
 </tbody>
 </table>
+<p><br></p>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -881,8 +961,8 @@ Text Stream Processing &amp; Pipeline Automation</p>
 </div>
 </div>
 </section>
-<section id="why-does-project-structure-matter" class="slide level2">
-<h2><strong>Why does project structure matter?</strong></h2>
+<section id="organize-your-project" class="slide level2">
+<h2><strong>Organize your project!</strong></h2>
 <p>A predictable project is easier to understand and automate:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb31-1"><a href="" aria-label="1"></a>cancer_rnaseq/</span>
 <span id="cb31-2"><a href="" aria-label="2"></a>├── raw_data/      # original data</span>
@@ -890,24 +970,22 @@ Text Stream Processing &amp; Pipeline Automation</p>
 <span id="cb31-4"><a href="" aria-label="4"></a>├── results/       # generated outputs</span>
 <span id="cb31-5"><a href="" aria-label="5"></a>├── scripts/       # code</span>
 <span id="cb31-6"><a href="" aria-label="6"></a>└── logs/          # logs / reports</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section></section>
-<section id="structure-is-part-of-reproducibility." class="title-slide slide level1 center">
-<h1><strong>Structure is part of reproducibility.</strong></h1>
-<div class="callout callout-important callout-titled callout-style-default">
+<p><br></p>
+<div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Important</strong></p>
+<p><strong>Note</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>Do not edit raw data in place.</strong></p>
+<p><strong>Why does project structure matter?</strong></p>
+<p>A good structure is part of <strong>reproducibility</strong>. You should be able to return to your project months or years later and immediately understand <strong>where things are and what each file or folder is for</strong>.</p>
 </div>
 </div>
 </div>
-</section>
-
+</section></section>
 <section>
 <section id="creating-and-manipulating-files" class="title-slide slide level1 center">
 <h1>6. Creating and Manipulating Files</h1>
@@ -1106,7 +1184,8 @@ Text Stream Processing &amp; Pipeline Automation</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb58"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb58-1"><a href="" aria-label="1"></a>Space / PageDown  → forward</span>
 <span id="cb58-2"><a href="" aria-label="2"></a>b / PageUp        → backward</span>
 <span id="cb58-3"><a href="" aria-label="3"></a>q                 → quit</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section></section>
+
+<img data-src="assets/less_demonstration.png" class="r-stretch"></section></section>
 <section>
 <section id="hidden-files-and-useful-habits" class="title-slide slide level1 center">
 <h1>8. Hidden Files and Useful Habits</h1>
@@ -1256,6 +1335,7 @@ Text Stream Processing &amp; Pipeline Automation</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb79"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb79-1"><a href="" aria-label="1"></a>r → read contents</span>
 <span id="cb79-2"><a href="" aria-label="2"></a>w → modify contents</span>
 <span id="cb79-3"><a href="" aria-label="3"></a>x → execute as a program/script</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><br></p>
 <p>For a <strong>directory</strong>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb80"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb80-1"><a href="" aria-label="1"></a>r → list names</span>
 <span id="cb80-2"><a href="" aria-label="2"></a>w → create/delete entries</span>
@@ -1546,7 +1626,7 @@ Text Stream Processing &amp; Pipeline Automation</p>
 'previewLinksAuto': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
-'autoAnimateDuration': 0.6,
+'autoAnimateDuration': 0.8,
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
