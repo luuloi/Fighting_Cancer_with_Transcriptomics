@@ -2,7 +2,7 @@
 
 ## Course Introduction
 ##
-## Introduction of Next Generation Sequecning (NGS)
+## Introduction of Next Generation Sequencing (NGS)
 ##
 ## MODULE I: Computational Statistical Preparation
 ### BASH
