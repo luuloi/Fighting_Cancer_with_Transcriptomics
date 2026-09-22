@@ -221,11 +221,6 @@ Hoang Tran
 <li>Linux Command Line Cheatsheet: <a href="https://www.digitalocean.com/community/tutorials/linux-commands">Click here</a>.</li>
 </ul>
 </section>
-<section>
-<section id="why-linux-this-section-is-still-being-worked-on." class="title-slide slide level1 center">
-<h1>1. Why Linux? <strong>This section is still being worked on.</strong></h1>
-
-</section>
 <section id="lecture-02-where-does-this-session-fit" class="slide level2">
 <h2>Lecture 02: Where does this session fit?</h2>
 <p><strong>Lecture 01</strong><br>
@@ -238,6 +233,11 @@ Core Bioinformatic CLI Tools</p>
 <p>↓</p>
 <p><strong>Lecture 06</strong><br>
 Text Stream Processing &amp; Pipeline Automation</p>
+</section>
+<section>
+<section id="why-linux" class="title-slide slide level1 center">
+<h1>1. Why Linux?</h1>
+
 </section>
 <section id="what-should-you-be-able-to-do-after-2-hours" class="slide level2">
 <h2>What should you be able to do after 2 hours?</h2>
@@ -465,12 +465,13 @@ Text Stream Processing &amp; Pipeline Automation</p>
 <li>common on personal computers and servers</li>
 <li>straightforward package management with <code>apt</code> and Snaps</li>
 </ul>
-</section>
+
+<img data-src="assets/ubuntu_logo.svg" class="r-stretch"></section>
 <section id="ubuntu-is-based-on-debian" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Ubuntu is based on Debian</h2>
-<p><strong>Ubuntu is my primary Linux distro.</strong></p>
 <p>Both Ubuntu and Debian use the <strong><code>.deb</code> package format</strong> and the <code>apt</code> package-management system.</p>
-<p><br></p>
+
+<img data-src="assets/ubuntu_logo.svg" class="r-stretch"><p><br></p>
 <p>Example:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource bash number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode bash hljs"><span id="cb6-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="fu">sudo</span> apt update</span>
 <span id="cb6-2" class="hljs-ln-code"><a href="" aria-label="2"></a><span class="fu">sudo</span> apt install tree</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -559,8 +560,8 @@ Text Stream Processing &amp; Pipeline Automation</p>
 <li>GNOME Boxes</li>
 </ul>
 </section>
-<section id="vms-low-risk-but-with-significant-overhead" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">VMs: Low risk, but with significant overhead</h2>
+<section id="vm-low-risk-but-with-significant-overhead" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">VM: Low risk, but with significant overhead</h2>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div>
@@ -639,6 +640,26 @@ Text Stream Processing &amp; Pipeline Automation</p>
 </tr>
 </tbody>
 </table>
+</section>
+<section id="dual-booting-ubuntu-a-brief-guide" class="slide level2 smaller">
+<h2>Dual-Booting Ubuntu: A Brief Guide</h2>
+
+<img data-src="assets/ubuntu_dual-boot.png" class="r-stretch"><p>The installation process is actually quite straightforward. First, download the <strong>Ubuntu ISO image</strong> — most likely the <a href="https://ubuntu.com/download/desktop">latest LTS (long-term support) version</a>.</p>
+<p>Then, write the ISO image to a USB drive using an app such as <strong>Ventoy</strong> or <strong>Rufus</strong>.</p>
+<p>Finally, <strong>boot from the USB drive</strong> to start the Ubuntu live environment, then follow the on-screen instructions to install Ubuntu alongside your existing operating system.</p>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>Make sure you have enough <strong>free disk space</strong> for Ubuntu and <strong>back up important data</strong> before modifying your partitions.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="method-3-wsl2-windows-subsystem-for-linux-2" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Method 3: WSL2 (Windows Subsystem for Linux 2)</h2>
@@ -1553,69 +1574,125 @@ Text Stream Processing &amp; Pipeline Automation</p>
 <h2>Navigation</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb107"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb107-1"><a href="" aria-label="1"></a><span class="bu">pwd</span></span>
 <span id="cb107-2"><a href="" aria-label="2"></a><span class="fu">ls</span></span>
-<span id="cb107-3"><a href="" aria-label="3"></a><span class="fu">ls</span> <span class="at">-lah</span></span>
-<span id="cb107-4"><a href="" aria-label="4"></a><span class="bu">cd</span> DIR</span>
-<span id="cb107-5"><a href="" aria-label="5"></a><span class="bu">cd</span> ..</span>
-<span id="cb107-6"><a href="" aria-label="6"></a><span class="bu">cd</span> ~</span>
-<span id="cb107-7"><a href="" aria-label="7"></a><span class="bu">cd</span> /</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb107-3"><a href="" aria-label="3"></a><span class="fu">ls</span> <span class="at">-l</span></span>
+<span id="cb107-4"><a href="" aria-label="4"></a><span class="fu">ls</span> <span class="at">-a</span></span>
+<span id="cb107-5"><a href="" aria-label="5"></a><span class="fu">ls</span> <span class="at">-h</span></span>
+<span id="cb107-6"><a href="" aria-label="6"></a><span class="fu">ls</span> <span class="at">-lah</span></span>
+<span id="cb107-7"><a href="" aria-label="7"></a><span class="bu">cd</span> DIR</span>
+<span id="cb107-8"><a href="" aria-label="8"></a><span class="bu">cd</span> ..</span>
+<span id="cb107-9"><a href="" aria-label="9"></a><span class="bu">cd</span> ~</span>
+<span id="cb107-10"><a href="" aria-label="10"></a><span class="bu">cd</span> /</span>
+<span id="cb107-11"><a href="" aria-label="11"></a><span class="fu">whoami</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="files-and-directories" class="slide level2">
-<h2>Files and directories</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb108"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb108-1"><a href="" aria-label="1"></a><span class="fu">mkdir</span> DIR</span>
-<span id="cb108-2"><a href="" aria-label="2"></a><span class="fu">mkdir</span> <span class="at">-p</span> A/B/C</span>
-<span id="cb108-3"><a href="" aria-label="3"></a><span class="fu">touch</span> FILE</span>
-<span id="cb108-4"><a href="" aria-label="4"></a><span class="fu">cp</span> SRC DEST</span>
-<span id="cb108-5"><a href="" aria-label="5"></a><span class="fu">cp</span> <span class="at">-r</span> DIR DEST</span>
-<span id="cb108-6"><a href="" aria-label="6"></a><span class="fu">mv</span> SRC DEST</span>
-<span id="cb108-7"><a href="" aria-label="7"></a><span class="fu">rm</span> FILE</span>
-<span id="cb108-8"><a href="" aria-label="8"></a><span class="fu">rm</span> <span class="at">-r</span> DIR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="help-shell-utilities" class="slide level2">
+<h2>Help &amp; Shell Utilities</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb108"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb108-1"><a href="" aria-label="1"></a><span class="fu">man</span> COMMAND</span>
+<span id="cb108-2"><a href="" aria-label="2"></a><span class="ex">tldr</span> COMMAND</span>
+<span id="cb108-3"><a href="" aria-label="3"></a></span>
+<span id="cb108-4"><a href="" aria-label="4"></a><span class="bu">alias</span></span>
+<span id="cb108-5"><a href="" aria-label="5"></a><span class="bu">alias</span> ll=<span class="st">'ls -lahF --color=auto'</span></span>
+<span id="cb108-6"><a href="" aria-label="6"></a><span class="bu">alias</span> tree=<span class="st">'tree -C'</span></span>
+<span id="cb108-7"><a href="" aria-label="7"></a></span>
+<span id="cb108-8"><a href="" aria-label="8"></a><span class="ex">tree</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="inspection" class="slide level2">
-<h2>Inspection</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb109"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb109-1"><a href="" aria-label="1"></a><span class="fu">cat</span> FILE</span>
-<span id="cb109-2"><a href="" aria-label="2"></a><span class="fu">head</span> FILE</span>
-<span id="cb109-3"><a href="" aria-label="3"></a><span class="fu">head</span> <span class="at">-n</span> 20 FILE</span>
-<span id="cb109-4"><a href="" aria-label="4"></a><span class="fu">tail</span> FILE</span>
-<span id="cb109-5"><a href="" aria-label="5"></a><span class="fu">less</span> FILE</span>
-<span id="cb109-6"><a href="" aria-label="6"></a><span class="fu">wc</span> FILE</span>
-<span id="cb109-7"><a href="" aria-label="7"></a><span class="fu">wc</span> <span class="at">-l</span> FILE</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="files-directories" class="slide level2">
+<h2>Files &amp; Directories</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb109"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb109-1"><a href="" aria-label="1"></a><span class="fu">mkdir</span> DIR</span>
+<span id="cb109-2"><a href="" aria-label="2"></a><span class="fu">mkdir</span> <span class="at">-p</span> A/B/C</span>
+<span id="cb109-3"><a href="" aria-label="3"></a></span>
+<span id="cb109-4"><a href="" aria-label="4"></a><span class="fu">touch</span> FILE</span>
+<span id="cb109-5"><a href="" aria-label="5"></a></span>
+<span id="cb109-6"><a href="" aria-label="6"></a><span class="fu">cp</span> SRC DEST</span>
+<span id="cb109-7"><a href="" aria-label="7"></a><span class="fu">cp</span> SRC DIR/</span>
+<span id="cb109-8"><a href="" aria-label="8"></a><span class="fu">cp</span> <span class="at">-r</span> DIR DEST</span>
+<span id="cb109-9"><a href="" aria-label="9"></a></span>
+<span id="cb109-10"><a href="" aria-label="10"></a><span class="fu">mv</span> SRC DEST</span>
+<span id="cb109-11"><a href="" aria-label="11"></a><span class="fu">mv</span> OLD NEW</span>
+<span id="cb109-12"><a href="" aria-label="12"></a></span>
+<span id="cb109-13"><a href="" aria-label="13"></a><span class="fu">rm</span> FILE</span>
+<span id="cb109-14"><a href="" aria-label="14"></a><span class="fu">rm</span> <span class="at">-i</span> FILE</span>
+<span id="cb109-15"><a href="" aria-label="15"></a><span class="fu">rm</span> <span class="at">-r</span> DIR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="transfer" class="slide level2">
-<h2>Transfer</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb110"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb110-1"><a href="" aria-label="1"></a><span class="fu">wget</span> URL</span>
-<span id="cb110-2"><a href="" aria-label="2"></a><span class="ex">curl</span> URL</span>
-<span id="cb110-3"><a href="" aria-label="3"></a><span class="ex">curl</span> <span class="at">-O</span> URL</span>
-<span id="cb110-4"><a href="" aria-label="4"></a><span class="fu">rsync</span> SRC user@server:/path/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="inspecting-text-files-1" class="slide level2">
+<h2>Inspecting Text Files</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb110"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb110-1"><a href="" aria-label="1"></a><span class="fu">cat</span> FILE</span>
+<span id="cb110-2"><a href="" aria-label="2"></a></span>
+<span id="cb110-3"><a href="" aria-label="3"></a><span class="fu">head</span> FILE</span>
+<span id="cb110-4"><a href="" aria-label="4"></a><span class="fu">head</span> <span class="at">-n</span> 20 FILE</span>
+<span id="cb110-5"><a href="" aria-label="5"></a></span>
+<span id="cb110-6"><a href="" aria-label="6"></a><span class="fu">tail</span> FILE</span>
+<span id="cb110-7"><a href="" aria-label="7"></a><span class="fu">tail</span> <span class="at">-n</span> 20 FILE</span>
+<span id="cb110-8"><a href="" aria-label="8"></a></span>
+<span id="cb110-9"><a href="" aria-label="9"></a><span class="fu">less</span> FILE</span>
+<span id="cb110-10"><a href="" aria-label="10"></a></span>
+<span id="cb110-11"><a href="" aria-label="11"></a><span class="fu">wc</span> FILE</span>
+<span id="cb110-12"><a href="" aria-label="12"></a><span class="fu">wc</span> <span class="at">-l</span> FILE</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Useful <code>less</code> keys:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb111"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb111-1"><a href="" aria-label="1"></a>Space / PageDown  → forward</span>
+<span id="cb111-2"><a href="" aria-label="2"></a>b / PageUp        → backward</span>
+<span id="cb111-3"><a href="" aria-label="3"></a>q                 → quit</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="permissions-compression-editing" class="slide level2">
-<h2>Permissions, compression, editing</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb111"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb111-1"><a href="" aria-label="1"></a><span class="fu">chmod</span> +x script.sh</span>
-<span id="cb111-2"><a href="" aria-label="2"></a><span class="fu">chmod</span> u+x script.sh</span>
-<span id="cb111-3"><a href="" aria-label="3"></a><span class="fu">chown</span> user:group FILE</span>
-<span id="cb111-4"><a href="" aria-label="4"></a></span>
-<span id="cb111-5"><a href="" aria-label="5"></a><span class="fu">gzip</span> FILE</span>
-<span id="cb111-6"><a href="" aria-label="6"></a><span class="fu">gunzip</span> FILE.gz</span>
-<span id="cb111-7"><a href="" aria-label="7"></a></span>
-<span id="cb111-8"><a href="" aria-label="8"></a><span class="fu">tar</span> <span class="at">-cf</span> archive.tar DIR/</span>
-<span id="cb111-9"><a href="" aria-label="9"></a><span class="fu">tar</span> <span class="at">-xf</span> archive.tar</span>
-<span id="cb111-10"><a href="" aria-label="10"></a></span>
-<span id="cb111-11"><a href="" aria-label="11"></a><span class="fu">tar</span> <span class="at">-czf</span> archive.tar.gz DIR/</span>
-<span id="cb111-12"><a href="" aria-label="12"></a><span class="fu">tar</span> <span class="at">-xzf</span> archive.tar.gz</span>
-<span id="cb111-13"><a href="" aria-label="13"></a></span>
-<span id="cb111-14"><a href="" aria-label="14"></a><span class="fu">nano</span> FILE</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<aside class="notes">
-<p>This section is a reference, not a teaching sequence. Consider exporting it separately as a one-page command sheet.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
+<section id="downloading-transferring" class="slide level2">
+<h2>Downloading &amp; Transferring</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb112"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb112-1"><a href="" aria-label="1"></a><span class="fu">wget</span> URL</span>
+<span id="cb112-2"><a href="" aria-label="2"></a></span>
+<span id="cb112-3"><a href="" aria-label="3"></a><span class="ex">curl</span> URL</span>
+<span id="cb112-4"><a href="" aria-label="4"></a><span class="ex">curl</span> <span class="at">-O</span> URL</span>
+<span id="cb112-5"><a href="" aria-label="5"></a></span>
+<span id="cb112-6"><a href="" aria-label="6"></a><span class="fu">rsync</span> SRC user@server:/path/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="permissions-ownership" class="slide level2">
+<h2>Permissions &amp; Ownership</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb113"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb113-1"><a href="" aria-label="1"></a><span class="fu">chmod</span> +x FILE</span>
+<span id="cb113-2"><a href="" aria-label="2"></a><span class="fu">chmod</span> u+x FILE</span>
+<span id="cb113-3"><a href="" aria-label="3"></a><span class="fu">chmod</span> g-w FILE</span>
+<span id="cb113-4"><a href="" aria-label="4"></a></span>
+<span id="cb113-5"><a href="" aria-label="5"></a><span class="fu">chown</span> user:group FILE</span>
+<span id="cb113-6"><a href="" aria-label="6"></a></span>
+<span id="cb113-7"><a href="" aria-label="7"></a><span class="fu">ls</span> <span class="at">-l</span> FILE</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="compression-archiving" class="slide level2">
+<h2>Compression &amp; Archiving</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb114"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb114-1"><a href="" aria-label="1"></a><span class="fu">gzip</span> FILE</span>
+<span id="cb114-2"><a href="" aria-label="2"></a><span class="fu">gunzip</span> FILE.gz</span>
+<span id="cb114-3"><a href="" aria-label="3"></a></span>
+<span id="cb114-4"><a href="" aria-label="4"></a><span class="fu">tar</span> <span class="at">-cf</span> archive.tar DIR/</span>
+<span id="cb114-5"><a href="" aria-label="5"></a><span class="fu">tar</span> <span class="at">-xf</span> archive.tar</span>
+<span id="cb114-6"><a href="" aria-label="6"></a></span>
+<span id="cb114-7"><a href="" aria-label="7"></a><span class="fu">tar</span> <span class="at">-czf</span> archive.tar.gz DIR/</span>
+<span id="cb114-8"><a href="" aria-label="8"></a><span class="fu">tar</span> <span class="at">-xzf</span> archive.tar.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Remember:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb115"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb115-1"><a href="" aria-label="1"></a>tar    → archive</span>
+<span id="cb115-2"><a href="" aria-label="2"></a>gzip   → compress</span>
+<span id="cb115-3"><a href="" aria-label="3"></a>tar.gz → archive + gzip compression</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="software-installation-on-ubuntu" class="slide level2">
+<h2>Software Installation on Ubuntu</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb116"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb116-1"><a href="" aria-label="1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb116-2"><a href="" aria-label="2"></a><span class="fu">sudo</span> apt install PACKAGE</span>
+<span id="cb116-3"><a href="" aria-label="3"></a></span>
+<span id="cb116-4"><a href="" aria-label="4"></a><span class="fu">sudo</span> snap install PACKAGE</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Examples:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb117"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb117-1"><a href="" aria-label="1"></a><span class="fu">sudo</span> apt install tree</span>
+<span id="cb117-2"><a href="" aria-label="2"></a><span class="fu">sudo</span> snap install tldr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="text-editors" class="slide level2">
+<h2>Text Editors</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb118"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb118-1"><a href="" aria-label="1"></a><span class="fu">nano</span> FILE</span>
+<span id="cb118-2"><a href="" aria-label="2"></a></span>
+<span id="cb118-3"><a href="" aria-label="3"></a><span class="ex">vim</span> FILE</span>
+<span id="cb118-4"><a href="" aria-label="4"></a><span class="ex">vimtutor</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Essential <code>nano</code> shortcuts:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb119"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb119-1"><a href="" aria-label="1"></a>Ctrl + O  → save</span>
+<span id="cb119-2"><a href="" aria-label="2"></a>Ctrl + X  → exit</span>
+<span id="cb119-3"><a href="" aria-label="3"></a>Ctrl + W  → search</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Essential Vim commands taught today:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb120"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb120-1"><a href="" aria-label="1"></a>i        → insert mode</span>
+<span id="cb120-2"><a href="" aria-label="2"></a>Esc      → Normal mode</span>
+<span id="cb120-3"><a href="" aria-label="3"></a></span>
+<span id="cb120-4"><a href="" aria-label="4"></a>:w       → save</span>
+<span id="cb120-5"><a href="" aria-label="5"></a>:q       → quit</span>
+<span id="cb120-6"><a href="" aria-label="6"></a>:wq      → save + quit</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section></section>
 <section id="thank-you" class="title-slide slide level1 center">
 <h1>Thank You</h1>
