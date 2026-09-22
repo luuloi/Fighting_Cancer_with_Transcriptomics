@@ -102,7 +102,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="lecture-02_linux-env-file-system-navigation_files/libs/revealjs/dist/theme/quarto-b5231298e24bf61ce18e9358c9f8c47f.css">
+  <link rel="stylesheet" href="lecture-02_linux-env-file-system-navigation_files/libs/revealjs/dist/theme/quarto-581a879c062cdc19e1230440c5bb8372.css">
   <link href="lecture-02_linux-env-file-system-navigation_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="lecture-02_linux-env-file-system-navigation_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="lecture-02_linux-env-file-system-navigation_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -201,7 +201,7 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Lecture 02: Linux Environment &amp; File System Navigation</h1>
-  <p class="subtitle">From Bulk &amp; scRNA-seq to Spatial Transcriptomics for Fighting Cancer – 026</p>
+  <p class="subtitle">From Bulk &amp; scRNA-seq to Spatial Transcriptomics for Fighting Cancer – 2026</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -222,8 +222,8 @@ Hoang Tran
 </ul>
 </section>
 <section>
-<section id="why-linux" class="title-slide slide level1 center">
-<h1>1. Why Linux?</h1>
+<section id="why-linux-this-section-is-still-being-worked-on." class="title-slide slide level1 center">
+<h1>1. Why Linux? <strong>This section is still being worked on.</strong></h1>
 
 </section>
 <section id="lecture-02-where-does-this-session-fit" class="slide level2">
@@ -321,17 +321,280 @@ Text Stream Processing &amp; Pipeline Automation</p>
       }</style></aside>
 </section></section>
 <section>
+<section id="installing-linux" class="title-slide slide level1 center">
+<h1>2. Installing Linux</h1>
+
+</section>
+<section id="what-exactly-are-we-installing" class="slide level2">
+<h2>What exactly are we installing?</h2>
+<p><strong>Linux is not one operating system.</strong></p>
+<p>A <strong>Linux distribution (distro)</strong> combines:</p>
+<ul>
+<li class="fragment">Linux kernel</li>
+<li class="fragment">system utilities</li>
+<li class="fragment">software packages</li>
+<li class="fragment">package manager</li>
+<li class="fragment">default configuration</li>
+</ul>
+</section>
+<section id="major-linux-distributions" class="slide level2 smaller" data-auto-animate="true" data-auto-animate-duration="0.6" data-auto-animate-unmatched="false" data-auto-animate-easing="ease-out">
+<h2 data-id="quarto-animate-title">Major Linux distributions</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Distribution</th>
+<th>Family</th>
+<th>Package manager</th>
+<th>General character</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Ubuntu</strong></td>
+<td>Debian</td>
+<td><code>apt</code></td>
+<td>Beginner-friendly, desktop + server</td>
+</tr>
+<tr class="even">
+<td><strong>Debian</strong></td>
+<td>Debian</td>
+<td><code>apt</code></td>
+<td>Stable, conservative, highly influential</td>
+</tr>
+<tr class="odd">
+<td><strong>Fedora</strong></td>
+<td>Red Hat</td>
+<td><code>dnf</code></td>
+<td>Modern, community-driven, fast-moving</td>
+</tr>
+<tr class="even">
+<td><strong>RHEL</strong></td>
+<td>Red Hat</td>
+<td><code>dnf</code></td>
+<td>Enterprise-focused, long-term support</td>
+</tr>
+<tr class="odd">
+<td><strong>Arch Linux</strong></td>
+<td>Independent</td>
+<td><code>pacman</code></td>
+<td>Minimal, customizable, rolling release</td>
+</tr>
+</tbody>
+</table>
+<div data-id="bottom-content">
+<p><strong>The command line is broadly similar across Linux distributions:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode bash hljs"><span id="cb2-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="bu">pwd</span></span>
+<span id="cb2-2" class="hljs-ln-code"><a href="" aria-label="2"></a><span class="fu">ls</span></span>
+<span id="cb2-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="bu">cd</span></span>
+<span id="cb2-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="fu">cp</span></span>
+<span id="cb2-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="fu">mv</span></span>
+<span id="cb2-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="fu">rm</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="different-package-managers" class="slide level2 smaller" data-auto-animate="true" data-auto-animate-duration="0.6" data-auto-animate-unmatched="false" data-auto-animate-easing="ease-out">
+<h2 data-id="quarto-animate-title">Different package managers</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Distribution</th>
+<th>Family</th>
+<th>Package manager</th>
+<th>General character</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Ubuntu</strong></td>
+<td>Debian</td>
+<td><code>apt</code></td>
+<td>Beginner-friendly, desktop + server</td>
+</tr>
+<tr class="even">
+<td><strong>Debian</strong></td>
+<td>Debian</td>
+<td><code>apt</code></td>
+<td>Stable, conservative, highly influential</td>
+</tr>
+<tr class="odd">
+<td><strong>Fedora</strong></td>
+<td>Red Hat</td>
+<td><code>dnf</code></td>
+<td>Modern, community-driven, fast-moving</td>
+</tr>
+<tr class="even">
+<td><strong>RHEL</strong></td>
+<td>Red Hat</td>
+<td><code>dnf</code></td>
+<td>Enterprise-focused, long-term support</td>
+</tr>
+<tr class="odd">
+<td><strong>Arch Linux</strong></td>
+<td>Independent</td>
+<td><code>pacman</code></td>
+<td>Minimal, customizable, rolling release</td>
+</tr>
+</tbody>
+</table>
+<div data-id="bottom-content">
+<p><strong>But software installation may differ:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="" aria-label="1"></a><span class="ex">apt</span> install ...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="" aria-label="1"></a><span class="ex">dnf</span> install ...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="" aria-label="1"></a><span class="ex">pacman</span> <span class="at">-S</span> ...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="ubuntu-the-one-you-will-see-in-this-course" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Ubuntu: the one you will see in this course</h2>
+<p><strong>Ubuntu is my primary Linux distro.</strong></p>
+<p>For this course, Ubuntu will be the <strong>default reference environment</strong> for demonstrations.</p>
+<ul>
+<li>beginner-friendly</li>
+<li>large software ecosystem</li>
+<li>extensive documentation</li>
+<li>common on personal computers and servers</li>
+<li>straightforward package management with <code>apt</code> and Snaps</li>
+</ul>
+</section>
+<section id="ubuntu-is-based-on-debian" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Ubuntu is based on Debian</h2>
+<p><strong>Ubuntu is my primary Linux distro.</strong></p>
+<p>Both Ubuntu and Debian use the <strong><code>.deb</code> package format</strong> and the <code>apt</code> package-management system.</p>
+<p><br></p>
+<p>Example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource bash number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode bash hljs"><span id="cb6-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb6-2" class="hljs-ln-code"><a href="" aria-label="2"></a><span class="fu">sudo</span> apt install tree</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>You will see <code>sudo apt ...</code> repeatedly when installing bioinformatics software and Linux utilities. It is the main way to install packages on Ubuntu.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ubuntu-is-not-a-reskin-of-debian" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Ubuntu is not a reskin of Debian</h2>
+<p>Ubuntu is <strong>based on Debian</strong> — but it’s its <strong>own distribution</strong>.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Debian</th>
+<th>Ubuntu</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Own releases</td>
+<td><strong>Own release cycle</strong></td>
+</tr>
+<tr class="even">
+<td>Own repositories</td>
+<td><strong>Ubuntu repositories</strong></td>
+</tr>
+<tr class="odd">
+<td>Debian defaults</td>
+<td><strong>Ubuntu defaults</strong></td>
+</tr>
+<tr class="even">
+<td>Debian community</td>
+<td><strong>Ubuntu + Canonical</strong></td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>Ubuntu also adds its own technologies, such as <strong>Snap</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource bash number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode bash hljs"><span id="cb7-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="fu">sudo</span> snap install tldr   <span class="co"># Very useful utility, will be covered in a later section</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="how-can-i-run-linux" class="slide level2">
+<h2>How can I run Linux?</h2>
+<p>Knowing which distribution you want is only half the question.</p>
+<p>You also need to decide <strong>how Linux will run on your computer</strong>:</p>
+<div class="cell" data-fig-width="12" data-fig-height="6" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<svg width="1152" height="576" viewbox="0.00 0.00 367.84 116.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 112)">
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-112 363.84,-112 363.84,4 -4,4"></polygon>
+<!-- Linux -->
+<g id="node1" class="node">
+<title>Linux</title>
+<ellipse fill="none" stroke="black" cx="218.59" cy="-90" rx="34.21" ry="18"></ellipse>
+<text text-anchor="middle" x="218.59" y="-85.8" font-family="Times,serif" font-size="14.00">Linux</text>
+</g>
+<!-- Virtual Machine -->
+<g id="node2" class="node">
+<title>Virtual Machine</title>
+<ellipse fill="none" stroke="black" cx="74.59" cy="-18" rx="74.68" ry="18"></ellipse>
+<text text-anchor="middle" x="74.59" y="-13.8" font-family="Times,serif" font-size="14.00">Virtual Machine</text>
+</g>
+<!-- Linux&#45;&gt;Virtual Machine -->
+<g id="edge1" class="edge">
+<title>Linux-&gt;Virtual Machine</title>
+<path fill="none" stroke="black" d="M194.16,-77.13C172.58,-66.63 140.67,-51.12 115.25,-38.76"></path>
+<polygon fill="black" stroke="black" points="116.73,-35.59 106.2,-34.37 113.67,-41.89 116.73,-35.59"></polygon>
+</g>
+<!-- Dual Boot -->
+<g id="node3" class="node">
+<title>Dual Boot</title>
+<ellipse fill="none" stroke="black" cx="218.59" cy="-18" rx="51.01" ry="18"></ellipse>
+<text text-anchor="middle" x="218.59" y="-13.8" font-family="Times,serif" font-size="14.00">Dual Boot</text>
+</g>
+<!-- Linux&#45;&gt;Dual Boot -->
+<g id="edge2" class="edge">
+<title>Linux-&gt;Dual Boot</title>
+<path fill="none" stroke="black" d="M218.59,-71.7C218.59,-63.98 218.59,-54.71 218.59,-46.11"></path>
+<polygon fill="black" stroke="black" points="222.09,-46.1 218.59,-36.1 215.09,-46.1 222.09,-46.1"></polygon>
+</g>
+<!-- WSL2 -->
+<g id="node4" class="node">
+<title>WSL2</title>
+<ellipse fill="none" stroke="black" cx="323.59" cy="-18" rx="36.5" ry="18"></ellipse>
+<text text-anchor="middle" x="323.59" y="-13.8" font-family="Times,serif" font-size="14.00">WSL2</text>
+</g>
+<!-- Linux&#45;&gt;WSL2 -->
+<g id="edge3" class="edge">
+<title>Linux-&gt;WSL2</title>
+<path fill="none" stroke="black" d="M238.83,-75.5C254.46,-65.08 276.32,-50.51 293.93,-38.78"></path>
+<polygon fill="black" stroke="black" points="296.31,-41.39 302.69,-32.93 292.43,-35.57 296.31,-41.39"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
 <section id="terminal-shell-command" class="title-slide slide level1 center">
-<h1>2. Terminal, Shell, Command</h1>
+<h1>3. Terminal, Shell, Command</h1>
 
 </section>
 <section id="three-things-beginners-often-mix-up" class="slide level2">
 <h2>Three things beginners often mix up</h2>
-<p><strong>Terminal</strong> → <em>gives you a place to type</em></p>
+<p><strong>Terminal</strong> → gives you a place to type</p>
 <p>↓</p>
-<p><strong>Shell</strong> <em>(e.g.&nbsp;Bash, Zsh)</em> → <em>interprets what you type</em></p>
+<p><strong>Shell (e.g., Bash, Zsh)</strong> → interprets what you type</p>
 <p>↓</p>
-<p><strong>Command / program</strong> → <em>performs an operation</em></p>
+<p><strong>Command / program</strong> → performs an operation</p>
 <p>↓</p>
 <p><strong>Operating system + filesystem</strong></p>
 <div class="callout callout-note callout-titled callout-style-default">
@@ -366,38 +629,51 @@ Text Stream Processing &amp; Pipeline Automation</p>
 <section id="where-am-i-use-pwd" class="slide level2">
 <h2>Where am I? Use: <code>pwd</code></h2>
 <p><strong>Print working directory</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="" aria-label="1"></a><span class="bu">pwd</span></span>
-<span id="cb2-2"><a href="" aria-label="2"></a><span class="co"># Result: /home/projects/</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="" aria-label="1"></a><span class="bu">pwd</span></span>
+<span id="cb8-2"><a href="" aria-label="2"></a><span class="co"># Result: /home/projects/</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="what-is-here-use-ls" class="slide level2">
-<h2>What is here? Use: <code>ls</code></h2>
+<section id="what-is-here-use-ls" class="slide level2" data-auto-animate="true" data-auto-animate-easing="ease-out" data-auto-animate-unmatched="true">
+<h2 data-id="quarto-animate-title">What is here? Use: <code>ls</code></h2>
 <p><strong>List all files and folders under a specified directory</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="" aria-label="1"></a><span class="fu">ls</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div data-id="static-content">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource bash number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode bash hljs"><span id="cb9-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="fu">ls</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="useful-flags-for-ls" class="slide level2" data-auto-animate="true" data-auto-animate-easing="ease-in-out" data-auto-animate-duration="0.6">
+<h2 data-id="quarto-animate-title">Useful flags for <code>ls</code></h2>
+<p><strong>List all files and folders under a specified directory</strong></p>
+<div data-id="static-content">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="" aria-label="1"></a><span class="fu">ls</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div data-id="flags">
 <p>Useful variants:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="" aria-label="1"></a><span class="fu">ls</span> <span class="at">-l</span>      <span class="co"># detailed listing</span></span>
-<span id="cb4-2"><a href="" aria-label="2"></a><span class="fu">ls</span> <span class="at">-a</span>      <span class="co"># include hidden files</span></span>
-<span id="cb4-3"><a href="" aria-label="3"></a><span class="fu">ls</span> <span class="at">-h</span>      <span class="co"># human-readable sizes with long format</span></span>
-<span id="cb4-4"><a href="" aria-label="4"></a><span class="fu">ls</span> <span class="at">-lah</span>    <span class="co"># combine common options</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="" aria-label="1"></a><span class="fu">ls</span> <span class="at">-l</span>      <span class="co"># detailed listing</span></span>
+<span id="cb11-2"><a href="" aria-label="2"></a><span class="fu">ls</span> <span class="at">-a</span>      <span class="co"># include hidden files</span></span>
+<span id="cb11-3"><a href="" aria-label="3"></a><span class="fu">ls</span> <span class="at">-h</span>      <span class="co"># human-readable sizes with long format</span></span>
+<span id="cb11-4"><a href="" aria-label="4"></a><span class="fu">ls</span> <span class="at">-lah</span>    <span class="co"># combine common options</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><br></p>
 <p><strong>Watch me demonstrate this on my own Ubuntu machine.</strong></p>
 </section>
 <section id="where-should-i-go-use-cd" class="slide level2">
 <h2>Where should I go? Use: <code>cd</code></h2>
 <p><strong><code>cd</code>: change directory</strong>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="" aria-label="1"></a><span class="bu">cd</span> data/</span>
-<span id="cb5-2"><a href="" aria-label="2"></a><span class="bu">cd</span> ..</span>
-<span id="cb5-3"><a href="" aria-label="3"></a><span class="bu">cd</span> results/</span>
-<span id="cb5-4"><a href="" aria-label="4"></a><span class="bu">cd</span> ~</span>
-<span id="cb5-5"><a href="" aria-label="5"></a><span class="bu">cd</span> /</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="" aria-label="1"></a><span class="bu">cd</span> data/</span>
+<span id="cb12-2"><a href="" aria-label="2"></a><span class="bu">cd</span> ..</span>
+<span id="cb12-3"><a href="" aria-label="3"></a><span class="bu">cd</span> results/</span>
+<span id="cb12-4"><a href="" aria-label="4"></a><span class="bu">cd</span> ~</span>
+<span id="cb12-5"><a href="" aria-label="5"></a><span class="bu">cd</span> /</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>A reliable beginner loop:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="" aria-label="1"></a><span class="bu">pwd</span></span>
-<span id="cb6-2"><a href="" aria-label="2"></a><span class="fu">ls</span></span>
-<span id="cb6-3"><a href="" aria-label="3"></a><span class="bu">cd</span> <span class="op">&lt;</span>where<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="" aria-label="1"></a><span class="bu">pwd</span></span>
+<span id="cb13-2"><a href="" aria-label="2"></a><span class="fu">ls</span></span>
+<span id="cb13-3"><a href="" aria-label="3"></a><span class="bu">cd</span> <span class="op">&lt;</span>where<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="which-user-am-i-use-whoami" class="slide level2">
 <h2>Which user am I? Use: <code>whoami</code></h2>
 <p><strong>Print the current username. Self-explanatory.</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="" aria-label="1"></a><span class="fu">whoami</span></span>
-<span id="cb7-2"><a href="" aria-label="2"></a><span class="co"># Result: ht2905 – My username</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="" aria-label="1"></a><span class="fu">whoami</span></span>
+<span id="cb14-2"><a href="" aria-label="2"></a><span class="co"># Result: ht2905 – My username</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><br></p>
 <p>This matters especially on shared systems where:</p>
 <ul>
 <li>several people use the same server;</li>
@@ -407,22 +683,22 @@ Text Stream Processing &amp; Pipeline Automation</p>
 </section>
 <section id="command-anatomy" class="slide level2">
 <h2>Command anatomy</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="" aria-label="1"></a><span class="bu">command</span> <span class="pp">[</span><span class="ss">options</span><span class="pp">]</span> <span class="pp">[</span><span class="ss">arguments</span><span class="pp">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="" aria-label="1"></a><span class="bu">command</span> <span class="pp">[</span><span class="ss">options</span><span class="pp">]</span> <span class="pp">[</span><span class="ss">arguments</span><span class="pp">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Example:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="" aria-label="1"></a><span class="fu">ls</span> <span class="at">-lah</span> data/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb10-1"><a href="" aria-label="1"></a>ls       → command</span>
-<span id="cb10-2"><a href="" aria-label="2"></a>-l -a -h  → options / flags</span>
-<span id="cb10-3"><a href="" aria-label="3"></a>data/    → argument</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="" aria-label="1"></a><span class="fu">ls</span> <span class="at">-lah</span> data/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="" aria-label="1"></a><span class="fu">ls</span>         <span class="co"># command</span></span>
+<span id="cb17-2"><a href="" aria-label="2"></a><span class="ex">-l</span> <span class="at">-a</span> <span class="at">-h</span>   <span class="co"># options / flags</span></span>
+<span id="cb17-3"><a href="" aria-label="3"></a><span class="ex">data/</span>      <span class="co">#argument</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="our-teaching-sandbox" class="slide level2">
 <h2>Our Teaching Sandbox</h2>
 <h3 id="google-colab"><a href="https://colab.research.google.com/">Google Colab</a></h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="" aria-label="1"></a><span class="ex">%%bash</span></span>
-<span id="cb11-2"><a href="" aria-label="2"></a></span>
-<span id="cb11-3"><a href="" aria-label="3"></a><span class="bu">pwd</span></span>
-<span id="cb11-4"><a href="" aria-label="4"></a><span class="fu">ls</span> <span class="at">-lah</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="" aria-label="1"></a><span class="ex">%%bash</span></span>
+<span id="cb18-2"><a href="" aria-label="2"></a></span>
+<span id="cb18-3"><a href="" aria-label="3"></a><span class="bu">pwd</span></span>
+<span id="cb18-4"><a href="" aria-label="4"></a><span class="fu">ls</span> <span class="at">-lah</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Or:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="" aria-label="1"></a><span class="op">!</span>pwd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="" aria-label="1"></a><span class="op">!</span>pwd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li><code>%%bash</code> is used to mark a cell as a Bash script. It is not a command itself.</li>
 <li><code>!</code> is used to mark a line as a shell command.</li>
@@ -444,20 +720,20 @@ Text Stream Processing &amp; Pipeline Automation</p>
 </section></section>
 <section>
 <section id="the-linux-filesystem" class="title-slide slide level1 center">
-<h1>3. The Linux Filesystem</h1>
+<h1>4. The Linux Filesystem</h1>
 
 </section>
 <section id="think-in-trees-not-drives" class="slide level2">
 <h2>Think in trees, not drives</h2>
 <p>Linux starts from a single root directory:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb13-1"><a href="" aria-label="1"></a>/</span>
-<span id="cb13-2"><a href="" aria-label="2"></a>├── home/</span>
-<span id="cb13-3"><a href="" aria-label="3"></a>│   ├── ht2905/</span>
-<span id="cb13-4"><a href="" aria-label="4"></a>│   └── ace/</span>
-<span id="cb13-5"><a href="" aria-label="5"></a>├── etc/</span>
-<span id="cb13-6"><a href="" aria-label="6"></a>├── usr/</span>
-<span id="cb13-7"><a href="" aria-label="7"></a>├── var/</span>
-<span id="cb13-8"><a href="" aria-label="8"></a>└── tmp/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb20-1"><a href="" aria-label="1"></a>/</span>
+<span id="cb20-2"><a href="" aria-label="2"></a>├── home/</span>
+<span id="cb20-3"><a href="" aria-label="3"></a>│   ├── ht2905/</span>
+<span id="cb20-4"><a href="" aria-label="4"></a>│   └── ace/</span>
+<span id="cb20-5"><a href="" aria-label="5"></a>├── etc/</span>
+<span id="cb20-6"><a href="" aria-label="6"></a>├── usr/</span>
+<span id="cb20-7"><a href="" aria-label="7"></a>├── var/</span>
+<span id="cb20-8"><a href="" aria-label="8"></a>└── tmp/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="filesystem-root" class="slide level2">
 <h2><code>/</code> = filesystem root</h2>
@@ -467,10 +743,10 @@ Text Stream Processing &amp; Pipeline Automation</p>
 <section id="where-is-my-home" class="slide level2">
 <h2>Where is my home?</h2>
 <p>The current user’s home directory is usually written as: <code>~</code></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="" aria-label="1"></a><span class="bu">cd</span> ~</span>
-<span id="cb14-2"><a href="" aria-label="2"></a><span class="bu">pwd</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="" aria-label="1"></a><span class="bu">cd</span> ~</span>
+<span id="cb21-2"><a href="" aria-label="2"></a><span class="bu">pwd</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>If the username is <code>ht2905</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb15-1"><a href="" aria-label="1"></a>/home/ht2905</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb22-1"><a href="" aria-label="1"></a>/home/ht2905</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Therefore <code>~</code> is a shortcut for <code>/home/ht2905</code>.</p>
 <p>The exact path varies by machine.</p>
 </section>
@@ -521,10 +797,11 @@ Text Stream Processing &amp; Pipeline Automation</p>
 <h2><strong>Absolute or relative?</strong></h2>
 <h3 id="absolute-path">Absolute path</h3>
 <p>Starts at <code>/</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb16-1"><a href="" aria-label="1"></a>/home/ht2905/project/data/sample.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb23-1"><a href="" aria-label="1"></a>/home/ht2905/project/data/sample.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><br><br></p>
 <h3 id="relative-path">Relative path</h3>
 <p>Starts from <strong>where you are now</strong>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb17-1"><a href="" aria-label="1"></a>data/sample.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb24-1"><a href="" aria-label="1"></a>data/sample.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -543,13 +820,14 @@ Text Stream Processing &amp; Pipeline Automation</p>
 <section id="same-file-different-address" class="slide level2">
 <h2>Same file, different address</h2>
 <p>You are here:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="" aria-label="1"></a><span class="bu">pwd</span></span>
-<span id="cb18-2"><a href="" aria-label="2"></a><span class="ex">/home/ht2905/project</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="" aria-label="1"></a><span class="bu">pwd</span></span>
+<span id="cb25-2"><a href="" aria-label="2"></a><span class="ex">/home/ht2905/project</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb19-1"><a href="" aria-label="1"></a>data/sample.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb26-1"><a href="" aria-label="1"></a>data/sample.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>and:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb20-1"><a href="" aria-label="1"></a>/home/ht2905/project/data/sample.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb27-1"><a href="" aria-label="1"></a>/home/ht2905/project/data/sample.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>refer to the <strong>same file</strong>.</p>
+<p><br></p>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -566,7 +844,7 @@ Text Stream Processing &amp; Pipeline Automation</p>
 </section></section>
 <section>
 <section id="navigation" class="title-slide slide level1 center">
-<h1>4. Navigation</h1>
+<h1>5. Navigation</h1>
 
 </section>
 <section id="how-do-i-navigate-deliberately" class="slide level2">
@@ -581,12 +859,11 @@ Text Stream Processing &amp; Pipeline Automation</p>
 <section id="tab-completion-is-your-friend" class="slide level2">
 <h2><strong>Tab completion is your friend</strong></h2>
 <p>Instead of:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="" aria-label="1"></a><span class="bu">cd</span> very_long_project_directory_name</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="" aria-label="1"></a><span class="bu">cd</span> very_long_project_directory_name</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>type:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb22-1"><a href="" aria-label="1"></a>cd ver&lt;TAB&gt;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb29-1"><a href="" aria-label="1"></a>cd ver&lt;TAB&gt;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Bash can complete filenames and directory names.</p>
 <p>If the completion is ambiguous, press <code>Tab</code> twice to see matches.</p>
-<p><strong>Watch me demonstrate this on my own Ubuntu machine.</strong></p>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -598,8 +875,8 @@ Text Stream Processing &amp; Pipeline Automation</p>
 <div class="callout-content">
 <p><strong>Tired of typing the same command? Use an alias.</strong></p>
 <p>A Bash alias gives a command a shorter name.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="" aria-label="1"></a><span class="bu">alias</span> ll=<span class="st">'ls -lahF --color=auto'</span></span>
-<span id="cb23-2"><a href="" aria-label="2"></a><span class="bu">alias</span> tree=<span class="st">'tree -C'</span>    <span class="co"># Colorized tree view (requires tree package)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="" aria-label="1"></a><span class="bu">alias</span> ll=<span class="st">'ls -lahF --color=auto'</span></span>
+<span id="cb30-2"><a href="" aria-label="2"></a><span class="bu">alias</span> tree=<span class="st">'tree -C'</span>    <span class="co"># Colorized tree view (requires tree package)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -607,12 +884,12 @@ Text Stream Processing &amp; Pipeline Automation</p>
 <section id="why-does-project-structure-matter" class="slide level2">
 <h2><strong>Why does project structure matter?</strong></h2>
 <p>A predictable project is easier to understand and automate:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb24-1"><a href="" aria-label="1"></a>cancer_rnaseq/</span>
-<span id="cb24-2"><a href="" aria-label="2"></a>├── raw_data/      # original data</span>
-<span id="cb24-3"><a href="" aria-label="3"></a>├── reference/     # genome / annotation</span>
-<span id="cb24-4"><a href="" aria-label="4"></a>├── results/       # generated outputs</span>
-<span id="cb24-5"><a href="" aria-label="5"></a>├── scripts/       # code</span>
-<span id="cb24-6"><a href="" aria-label="6"></a>└── logs/          # logs / reports</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb31-1"><a href="" aria-label="1"></a>cancer_rnaseq/</span>
+<span id="cb31-2"><a href="" aria-label="2"></a>├── raw_data/      # original data</span>
+<span id="cb31-3"><a href="" aria-label="3"></a>├── reference/     # genome / annotation</span>
+<span id="cb31-4"><a href="" aria-label="4"></a>├── results/       # generated outputs</span>
+<span id="cb31-5"><a href="" aria-label="5"></a>├── scripts/       # code</span>
+<span id="cb31-6"><a href="" aria-label="6"></a>└── logs/          # logs / reports</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section></section>
 <section id="structure-is-part-of-reproducibility." class="title-slide slide level1 center">
 <h1><strong>Structure is part of reproducibility.</strong></h1>
@@ -633,25 +910,25 @@ Text Stream Processing &amp; Pipeline Automation</p>
 
 <section>
 <section id="creating-and-manipulating-files" class="title-slide slide level1 center">
-<h1>5. Creating and Manipulating Files</h1>
+<h1>6. Creating and Manipulating Files</h1>
 
 </section>
 <section id="create-a-directory-with-mkdir" class="slide level2">
 <h2>Create a directory with <code>mkdir</code></h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="" aria-label="1"></a><span class="fu">mkdir</span> results</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="" aria-label="1"></a><span class="fu">mkdir</span> results</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Nested directories:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="" aria-label="1"></a><span class="fu">mkdir</span> <span class="at">-p</span> project/results/qc</span>
-<span id="cb26-2"><a href="" aria-label="2"></a><span class="ex">-p</span> → create parent directories as needed</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="" aria-label="1"></a><span class="fu">mkdir</span> <span class="at">-p</span> project/results/qc</span>
+<span id="cb33-2"><a href="" aria-label="2"></a><span class="ex">-p</span>    <span class="co"># create parent directories as needed</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Check:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="" aria-label="1"></a><span class="fu">ls</span> <span class="at">-lah</span> project/results/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="" aria-label="1"></a><span class="fu">ls</span> <span class="at">-lah</span> project/results/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="create-an-empty-file-with-touch" class="slide level2">
 <h2>Create an empty file with <code>touch</code></h2>
 <p><strong>Update a file’s timestamp, or create it if it does not exist</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="" aria-label="1"></a><span class="fu">touch</span> notes.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="" aria-label="1"></a><span class="fu">touch</span> notes.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="" aria-label="1"></a><span class="fu">ls</span> <span class="at">-l</span> notes.txt</span>
-<span id="cb29-2"><a href="" aria-label="2"></a><span class="fu">cat</span> notes.txt <span class="co"># Outputs nothing</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="" aria-label="1"></a><span class="fu">ls</span> <span class="at">-l</span> notes.txt</span>
+<span id="cb36-2"><a href="" aria-label="2"></a><span class="fu">cat</span> notes.txt <span class="co"># Outputs nothing</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -669,18 +946,18 @@ Text Stream Processing &amp; Pipeline Automation</p>
 </section>
 <section id="copy-a-file-with-cp" class="slide level2">
 <h2>Copy a file with <code>cp</code></h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="" aria-label="1"></a><span class="fu">cp</span> sample.fastq.gz backup.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="" aria-label="1"></a><span class="fu">cp</span> sample.fastq.gz backup.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Copy into a directory:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="" aria-label="1"></a><span class="fu">cp</span> sample.fastq.gz results/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="" aria-label="1"></a><span class="fu">cp</span> sample.fastq.gz results/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Copy a directory recursively:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="" aria-label="1"></a><span class="fu">cp</span> <span class="at">-r</span> raw_data/ raw_data_backup/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="" aria-label="1"></a><span class="fu">cp</span> <span class="at">-r</span> raw_data/ raw_data_backup/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="move-files-and-folders-around-with-mv" class="slide level2">
 <h2>Move files and folders around with <code>mv</code></h2>
 <p>Move:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="" aria-label="1"></a><span class="fu">mv</span> sample.fastq.gz raw_data/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="" aria-label="1"></a><span class="fu">mv</span> sample.fastq.gz raw_data/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Rename:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="" aria-label="1"></a><span class="fu">mv</span> sample.fastq.gz sample_R1.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="" aria-label="1"></a><span class="fu">mv</span> sample.fastq.gz sample_R1.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -695,14 +972,21 @@ Text Stream Processing &amp; Pipeline Automation</p>
 </div>
 </div>
 </section>
-<section id="remove-files-and-folders-with-rm" class="slide level2">
-<h2>Remove files and folders with <code>rm</code></h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="" aria-label="1"></a><span class="fu">rm</span> notes.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="remove-files-and-folders-with-rm" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Remove files and folders with <code>rm</code></h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="" aria-label="1"></a><span class="fu">rm</span> notes.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Ask first:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="" aria-label="1"></a><span class="fu">rm</span> <span class="at">-i</span> notes.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Recursive removal:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="" aria-label="1"></a><span class="fu">rm</span> <span class="at">-r</span> old_results/</span>
-<span id="cb37-2"><a href="" aria-label="2"></a><span class="ex">-r</span> → remove a directory and everything inside it <span class="er">(</span><span class="ex">careful!</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="" aria-label="1"></a><span class="fu">rm</span> <span class="at">-i</span> notes.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="recursive-removal-be-careful" class="slide level2" data-auto-animate="true" data-auto-animate-easing="ease-out">
+<h2 data-id="quarto-animate-title">Recursive removal: be careful!</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="" aria-label="1"></a><span class="fu">rm</span> notes.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Ask first:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="" aria-label="1"></a><span class="fu">rm</span> <span class="at">-i</span> notes.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><br></p>
+<p><strong>Recursive removal:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a href="" aria-label="1"></a><span class="fu">rm</span> <span class="at">-r</span> old_results/</span>
+<span id="cb46-2"><a href="" aria-label="2"></a><span class="ex">-r</span>  <span class="co"># remove a directory and everything inside it</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -720,15 +1004,15 @@ Text Stream Processing &amp; Pipeline Automation</p>
 </section>
 <section id="summary-the-mental-model" class="slide level2">
 <h2>Summary: The Mental Model</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb38-1"><a href="" aria-label="1"></a>mkdir  → create directory</span>
-<span id="cb38-2"><a href="" aria-label="2"></a>touch  → create file / update timestamp</span>
-<span id="cb38-3"><a href="" aria-label="3"></a>cp     → duplicate</span>
-<span id="cb38-4"><a href="" aria-label="4"></a>mv     → move or rename</span>
-<span id="cb38-5"><a href="" aria-label="5"></a>rm     → remove</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb47-1"><a href="" aria-label="1"></a><span class="fu">mkdir</span>  <span class="co"># create directory</span></span>
+<span id="cb47-2"><a href="" aria-label="2"></a><span class="fu">touch</span>  <span class="co"># create file / update timestamp</span></span>
+<span id="cb47-3"><a href="" aria-label="3"></a><span class="fu">cp</span>     <span class="co">#  duplicate</span></span>
+<span id="cb47-4"><a href="" aria-label="4"></a><span class="fu">mv</span>     <span class="co"># move or rename</span></span>
+<span id="cb47-5"><a href="" aria-label="5"></a><span class="fu">rm</span>     <span class="co"># remove</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section></section>
 <section>
 <section id="inspecting-text-files" class="title-slide slide level1 center">
-<h1>6. Inspecting Text Files</h1>
+<h1>7. Inspecting Text Files</h1>
 
 </section>
 <section id="before-you-analyze-the-data-inspect-it." class="slide level2">
@@ -756,10 +1040,10 @@ Text Stream Processing &amp; Pipeline Automation</p>
 </section>
 <section id="cat-print-a-file" class="slide level2">
 <h2><code>cat</code>: print a file</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="" aria-label="1"></a><span class="fu">cat</span> notes.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="" aria-label="1"></a><span class="fu">cat</span> notes.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Good for small files.</p>
 <p>Not a good idea for:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb40-1"><a href="" aria-label="1"></a>30 GB FASTQ</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb49-1"><a href="" aria-label="1"></a>30 GB FASTQ</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -787,92 +1071,80 @@ Text Stream Processing &amp; Pipeline Automation</p>
 </div>
 </div>
 </section>
-<section id="head-extract-the-beginning" class="slide level2">
-<h2><code>head</code>: extract the beginning</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="" aria-label="1"></a><span class="fu">head</span> sample.fastq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="head-extract-the-beginning" class="slide level2" data-auto-animate="true" data-auto-animate-easing="ease-out">
+<h2 data-id="quarto-animate-title"><code>head</code>: extract the beginning</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb50-1"><a href="" aria-label="1"></a><span class="fu">head</span> sample.fastq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Exactly 20 lines:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="" aria-label="1"></a><span class="fu">head</span> <span class="at">-n</span> 20 sample.fastq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb51-1"><a href="" aria-label="1"></a><span class="fu">head</span> <span class="at">-n</span> 20 sample.fastq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="tail-extract-the-end" class="slide level2">
-<h2><code>tail</code>: extract the end</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="" aria-label="1"></a><span class="fu">tail</span> sample.fastq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="tail-extract-the-end" class="slide level2" data-auto-animate="true" data-auto-animate-easing="ease-out">
+<h2 data-id="quarto-animate-title"><code>tail</code>: extract the end</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb52-1"><a href="" aria-label="1"></a><span class="fu">tail</span> sample.fastq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Exactly 20 lines:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="" aria-label="1"></a><span class="fu">tail</span> <span class="at">-n</span> 20 sample.fastq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb53-1"><a href="" aria-label="1"></a><span class="fu">tail</span> <span class="at">-n</span> 20 sample.fastq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="wc-count-lines-words-and-bytes" class="slide level2">
 <h2><code>wc</code>: Count lines, words, and bytes</h2>
 <p>A simplified FASTQ record:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb45-1"><a href="" aria-label="1"></a>@READ_001</span>
-<span id="cb45-2"><a href="" aria-label="2"></a>ACGTTGCA...</span>
-<span id="cb45-3"><a href="" aria-label="3"></a>+</span>
-<span id="cb45-4"><a href="" aria-label="4"></a>FFFFFFFF...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb54"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb54-1"><a href="" aria-label="1"></a>@READ_001</span>
+<span id="cb54-2"><a href="" aria-label="2"></a>ACGTTGCA...</span>
+<span id="cb54-3"><a href="" aria-label="3"></a>+</span>
+<span id="cb54-4"><a href="" aria-label="4"></a>FFFFFFFF...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>1 FASTQ record = 4 lines</strong></p>
 <p>So:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a href="" aria-label="1"></a><span class="fu">wc</span> <span class="at">-l</span> sample.fastq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb55"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb55-1"><a href="" aria-label="1"></a><span class="fu">wc</span> <span class="at">-l</span> sample.fastq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>gives the total number of lines.</p>
+<p><br></p>
 <p>For a well-formed FASTQ file:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb47-1"><a href="" aria-label="1"></a>records = lines / 4</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb56"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb56-1"><a href="" aria-label="1"></a>records = lines / 4</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Example:</strong> 4,000,000 lines → 1,000,000 reads</p>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Note</strong></p>
-</div>
-<div class="callout-content">
-<p><code>wc</code> only counts lines; it does not understand FASTQ structure or validate the file.</p>
-</div>
-</div>
-</div>
 </section>
 <section id="less-inspect-without-dumping-everything" class="slide level2">
 <h2><code>less</code>: Inspect without dumping everything</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="" aria-label="1"></a><span class="fu">less</span> large_file.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb57"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb57-1"><a href="" aria-label="1"></a><span class="fu">less</span> large_file.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Useful keys:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb49-1"><a href="" aria-label="1"></a>Space / PageDown  → forward</span>
-<span id="cb49-2"><a href="" aria-label="2"></a>b / PageUp        → backward</span>
-<span id="cb49-3"><a href="" aria-label="3"></a>q                 → quit</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb58"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb58-1"><a href="" aria-label="1"></a>Space / PageDown  → forward</span>
+<span id="cb58-2"><a href="" aria-label="2"></a>b / PageUp        → backward</span>
+<span id="cb58-3"><a href="" aria-label="3"></a>q                 → quit</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section></section>
 <section>
 <section id="hidden-files-and-useful-habits" class="title-slide slide level1 center">
-<h1>7. Hidden Files and Useful Habits</h1>
+<h1>8. Hidden Files and Useful Habits</h1>
 
 </section>
 <section id="what-makes-a-file-hidden" class="slide level2">
 <h2>What makes a file “hidden”?</h2>
 <p>Names beginning with <code>.</code> are normally hidden from plain <code>ls</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb50-1"><a href="" aria-label="1"></a><span class="fu">ls</span></span>
-<span id="cb50-2"><a href="" aria-label="2"></a><span class="fu">ls</span> <span class="at">-a</span>  → Show hidden files</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb59"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb59-1"><a href="" aria-label="1"></a><span class="fu">ls</span></span>
+<span id="cb59-2"><a href="" aria-label="2"></a><span class="fu">ls</span> <span class="at">-a</span>  <span class="co"># Show hidden files</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Examples:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb51-1"><a href="" aria-label="1"></a>.git/</span>
-<span id="cb51-2"><a href="" aria-label="2"></a>.gitignore</span>
-<span id="cb51-3"><a href="" aria-label="3"></a>.bashrc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb60"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb60-1"><a href="" aria-label="1"></a>.git/</span>
+<span id="cb60-2"><a href="" aria-label="2"></a>.gitignore</span>
+<span id="cb60-3"><a href="" aria-label="3"></a>.bashrc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="can-i-see-the-file-size" class="slide level2">
 <h2>Can I see the file size?</h2>
 <p>Compare:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb52-1"><a href="" aria-label="1"></a><span class="fu">ls</span> <span class="at">-l</span> sample.fastq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb61"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb61-1"><a href="" aria-label="1"></a><span class="fu">ls</span> <span class="at">-l</span> sample.fastq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>with:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb53-1"><a href="" aria-label="1"></a><span class="fu">ls</span> <span class="at">-lh</span> sample.fastq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb62"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb62-1"><a href="" aria-label="1"></a><span class="fu">ls</span> <span class="at">-lh</span> sample.fastq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Human-readable sizes might look like:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb54"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb54-1"><a href="" aria-label="1"></a>12K</span>
-<span id="cb54-2"><a href="" aria-label="2"></a>850M</span>
-<span id="cb54-3"><a href="" aria-label="3"></a>7.4G</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb63"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb63-1"><a href="" aria-label="1"></a>12K</span>
+<span id="cb63-2"><a href="" aria-label="2"></a>850M</span>
+<span id="cb63-3"><a href="" aria-label="3"></a>7.4G</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section></section>
 <section>
 <section id="downloading-data" class="title-slide slide level1 center">
-<h1>8. Downloading Data</h1>
+<h1>9. Downloading Data</h1>
 
 </section>
 <section id="wget-download-from-a-url" class="slide level2">
 <h2><code>wget</code>: Download from a URL</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb55"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb55-1"><a href="" aria-label="1"></a><span class="fu">wget</span> <span class="op">&lt;</span>URL<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb64"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb64-1"><a href="" aria-label="1"></a><span class="fu">wget</span> <span class="op">&lt;</span>URL<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Example:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb56"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb56-1"><a href="" aria-label="1"></a><span class="fu">wget</span> https://example.org/sample.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb65"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb65-1"><a href="" aria-label="1"></a><span class="fu">wget</span> https://example.org/sample.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then verify:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb57"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb57-1"><a href="" aria-label="1"></a><span class="fu">ls</span> <span class="at">-lh</span> sample.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb66"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb66-1"><a href="" aria-label="1"></a><span class="fu">ls</span> <span class="at">-lh</span> sample.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <aside class="notes">
 <p>Use a small, instructor-tested URL in the live session. Keep the deck generic so the course can substitute its own dataset.</p>
 <style type="text/css">
@@ -890,35 +1162,35 @@ Text Stream Processing &amp; Pipeline Automation</p>
 <section id="wget-vs-curl" class="slide level2">
 <h2><code>wget</code> vs <code>curl</code></h2>
 <h3 id="wget"><code>wget</code></h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb58"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb58-1"><a href="" aria-label="1"></a><span class="fu">wget</span> <span class="op">&lt;</span>URL<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb67"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb67-1"><a href="" aria-label="1"></a><span class="fu">wget</span> <span class="op">&lt;</span>URL<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Commonly used as a downloader.</p>
 <h3 id="curl"><code>curl</code></h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb59"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb59-1"><a href="" aria-label="1"></a><span class="ex">curl</span> <span class="op">&lt;</span>URL<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb68"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb68-1"><a href="" aria-label="1"></a><span class="ex">curl</span> <span class="op">&lt;</span>URL<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>General-purpose data transfer tool.</p>
 <p>Save using the remote filename:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb60"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb60-1"><a href="" aria-label="1"></a><span class="ex">curl</span> <span class="at">-O</span> <span class="op">&lt;</span>URL<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb69"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb69-1"><a href="" aria-label="1"></a><span class="ex">curl</span> <span class="at">-O</span> <span class="op">&lt;</span>URL<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="display-or-save" class="slide level2">
 <h2>Display or save?</h2>
 <p>This:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb61"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb61-1"><a href="" aria-label="1"></a><span class="ex">curl</span> https://example.org/sample.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb70"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb70-1"><a href="" aria-label="1"></a><span class="ex">curl</span> https://example.org/sample.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>usually prints the response.</p>
 <p>This:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb62"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb62-1"><a href="" aria-label="1"></a><span class="ex">curl</span> <span class="at">-O</span> https://example.org/sample.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb71"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb71-1"><a href="" aria-label="1"></a><span class="ex">curl</span> <span class="at">-O</span> https://example.org/sample.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>saves the file.</p>
 </section>
 <section id="bonus-rsync-where-does-it-fit" class="slide level2">
 <h2>Bonus: <code>rsync</code>, where does it fit?</h2>
 <p>Typical server transfer:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb63"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb63-1"><a href="" aria-label="1"></a><span class="fu">rsync</span> sample_R1.fastq.gz <span class="dt">\</span></span>
-<span id="cb63-2"><a href="" aria-label="2"></a>      user@server:/data/project/raw_data/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb72"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb72-1"><a href="" aria-label="1"></a><span class="fu">rsync</span> sample_R1.fastq.gz <span class="dt">\</span></span>
+<span id="cb72-2"><a href="" aria-label="2"></a>      user@server:/data/project/raw_data/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Conceptually:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb64"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb64-1"><a href="" aria-label="1"></a>Laptop / Colab</span>
-<span id="cb64-2"><a href="" aria-label="2"></a>      │</span>
-<span id="cb64-3"><a href="" aria-label="3"></a>    rsync</span>
-<span id="cb64-4"><a href="" aria-label="4"></a>      │</span>
-<span id="cb64-5"><a href="" aria-label="5"></a>      ▼</span>
-<span id="cb64-6"><a href="" aria-label="6"></a>Linux server / HPC</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb73"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb73-1"><a href="" aria-label="1"></a>Laptop / Colab</span>
+<span id="cb73-2"><a href="" aria-label="2"></a>      │</span>
+<span id="cb73-3"><a href="" aria-label="3"></a>    rsync</span>
+<span id="cb73-4"><a href="" aria-label="4"></a>      │</span>
+<span id="cb73-5"><a href="" aria-label="5"></a>      ▼</span>
+<span id="cb73-6"><a href="" aria-label="6"></a>Linux server / HPC</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Useful for:</p>
 <ul>
 <li>repeated transfers;</li>
@@ -929,19 +1201,19 @@ Text Stream Processing &amp; Pipeline Automation</p>
 </section></section>
 <section>
 <section id="permissions" class="title-slide slide level1 center">
-<h1>9. Permissions</h1>
+<h1>10. Permissions</h1>
 
 </section>
 <section id="why-can-two-users-get-different-results" class="slide level2">
 <h2>Why can two users get different results?</h2>
 <p>Linux tracks:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb65"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb65-1"><a href="" aria-label="1"></a>owner</span>
-<span id="cb65-2"><a href="" aria-label="2"></a>group</span>
-<span id="cb65-3"><a href="" aria-label="3"></a>others</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb74"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb74-1"><a href="" aria-label="1"></a>owner</span>
+<span id="cb74-2"><a href="" aria-label="2"></a>group</span>
+<span id="cb74-3"><a href="" aria-label="3"></a>others</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>A long listing might begin:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb66"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb66-1"><a href="" aria-label="1"></a>-rwxr-x---</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb75"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb75-1"><a href="" aria-label="1"></a>-rwxr-x---</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Read it as three blocks:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb67"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb67-1"><a href="" aria-label="1"></a>owner | group | others</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb76"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb76-1"><a href="" aria-label="1"></a>owner | group | others</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="three-permissions" class="slide level2">
 <h2>Three permissions</h2>
@@ -972,31 +1244,31 @@ Text Stream Processing &amp; Pipeline Automation</p>
 </tbody>
 </table>
 <p>Example:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb68"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb68-1"><a href="" aria-label="1"></a>-rwxr-x---</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb77"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb77-1"><a href="" aria-label="1"></a>-rwxr-x---</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>means:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb69"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb69-1"><a href="" aria-label="1"></a>owner  → rwx</span>
-<span id="cb69-2"><a href="" aria-label="2"></a>group  → r-x</span>
-<span id="cb69-3"><a href="" aria-label="3"></a>others → ---</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb78"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb78-1"><a href="" aria-label="1"></a>owner  → rwx</span>
+<span id="cb78-2"><a href="" aria-label="2"></a>group  → r-x</span>
+<span id="cb78-3"><a href="" aria-label="3"></a>others → ---</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="files-and-directories-are-different" class="slide level2">
 <h2>Files and directories are different</h2>
 <p>For a <strong>file</strong>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb70"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb70-1"><a href="" aria-label="1"></a>r → read contents</span>
-<span id="cb70-2"><a href="" aria-label="2"></a>w → modify contents</span>
-<span id="cb70-3"><a href="" aria-label="3"></a>x → execute as a program/script</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb79"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb79-1"><a href="" aria-label="1"></a>r → read contents</span>
+<span id="cb79-2"><a href="" aria-label="2"></a>w → modify contents</span>
+<span id="cb79-3"><a href="" aria-label="3"></a>x → execute as a program/script</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>For a <strong>directory</strong>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb71"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb71-1"><a href="" aria-label="1"></a>r → list names</span>
-<span id="cb71-2"><a href="" aria-label="2"></a>w → create/delete entries</span>
-<span id="cb71-3"><a href="" aria-label="3"></a>x → traverse/access entries</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb80"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb80-1"><a href="" aria-label="1"></a>r → list names</span>
+<span id="cb80-2"><a href="" aria-label="2"></a>w → create/delete entries</span>
+<span id="cb80-3"><a href="" aria-label="3"></a>x → traverse/access entries</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="need-to-make-a-script-executable-use-chmod" class="slide level2">
 <h2>Need to make a script executable? Use <code>chmod</code></h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb72"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb72-1"><a href="" aria-label="1"></a><span class="fu">chmod</span> +x hello.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb81"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb81-1"><a href="" aria-label="1"></a><span class="fu">chmod</span> +x hello.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Inspect:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb73"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb73-1"><a href="" aria-label="1"></a><span class="fu">ls</span> <span class="at">-l</span> hello.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb82"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb82-1"><a href="" aria-label="1"></a><span class="fu">ls</span> <span class="at">-l</span> hello.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Symbolic modes also exist:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb74"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb74-1"><a href="" aria-label="1"></a><span class="fu">chmod</span> u+x hello.sh</span>
-<span id="cb74-2"><a href="" aria-label="2"></a><span class="fu">chmod</span> g-w data.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb83"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb83-1"><a href="" aria-label="1"></a><span class="fu">chmod</span> u+x hello.sh</span>
+<span id="cb83-2"><a href="" aria-label="2"></a><span class="fu">chmod</span> g-w data.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <aside class="notes">
 <p>Do not make octal notation the focus today. Mention <code>chmod 755</code> only if it comes up.</p>
 <style type="text/css">
@@ -1013,10 +1285,10 @@ Text Stream Processing &amp; Pipeline Automation</p>
 </section>
 <section id="permissions-or-ownership" class="slide level2">
 <h2>Permissions or ownership?</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb75"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb75-1"><a href="" aria-label="1"></a>chmod → permissions</span>
-<span id="cb75-2"><a href="" aria-label="2"></a>chown → ownership</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb84"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb84-1"><a href="" aria-label="1"></a>chmod → permissions</span>
+<span id="cb84-2"><a href="" aria-label="2"></a>chown → ownership</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Basic ownership syntax:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb76"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb76-1"><a href="" aria-label="1"></a><span class="fu">chown</span> user:group file</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb85"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb85-1"><a href="" aria-label="1"></a><span class="fu">chown</span> user:group file</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>In managed servers, ownership is often controlled by administrators.</p>
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
@@ -1034,15 +1306,15 @@ Text Stream Processing &amp; Pipeline Automation</p>
 </section></section>
 <section>
 <section id="compression-and-archiving" class="title-slide slide level1 center">
-<h1>10. Compression and Archiving</h1>
+<h1>11. Compression and Archiving</h1>
 
 </section>
 <section id="why-does-sequencing-data-end-in-.gz" class="slide level2">
 <h2>Why does sequencing data end in <code>.gz</code>?</h2>
 <p>Instead of:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb77"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb77-1"><a href="" aria-label="1"></a>sample_R1.fastq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb86"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb86-1"><a href="" aria-label="1"></a>sample_R1.fastq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>you often see:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb78"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb78-1"><a href="" aria-label="1"></a>sample_R1.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb87"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb87-1"><a href="" aria-label="1"></a>sample_R1.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><code>gzip</code> compression reduces storage and transfer costs.</p>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -1061,58 +1333,32 @@ Text Stream Processing &amp; Pipeline Automation</p>
 <section id="compression-changes-one-file" class="slide level2">
 <h2>Compression changes one file</h2>
 <p>Compress:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb79"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb79-1"><a href="" aria-label="1"></a><span class="fu">gzip</span> sample.fastq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb88"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb88-1"><a href="" aria-label="1"></a><span class="fu">gzip</span> sample.fastq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Usually becomes:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb80"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb80-1"><a href="" aria-label="1"></a>sample.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb89"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb89-1"><a href="" aria-label="1"></a>sample.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Decompress:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb81"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb81-1"><a href="" aria-label="1"></a><span class="fu">gunzip</span> sample.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb90"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb90-1"><a href="" aria-label="1"></a><span class="fu">gunzip</span> sample.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Check:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb82"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb82-1"><a href="" aria-label="1"></a><span class="fu">ls</span> <span class="at">-lh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb91"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb91-1"><a href="" aria-label="1"></a><span class="fu">ls</span> <span class="at">-lh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="archiving-bundles-many-files-tar" class="slide level2">
 <h2>Archiving bundles many files: <code>tar</code></h2>
 <p>Create:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb83"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb83-1"><a href="" aria-label="1"></a><span class="fu">tar</span> <span class="at">-cf</span> results.tar results/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb92"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb92-1"><a href="" aria-label="1"></a><span class="fu">tar</span> <span class="at">-cf</span> results.tar results/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Extract:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb84"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb84-1"><a href="" aria-label="1"></a><span class="fu">tar</span> <span class="at">-xf</span> results.tar</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb93"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb93-1"><a href="" aria-label="1"></a><span class="fu">tar</span> <span class="at">-xf</span> results.tar</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Compressed archive:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb85"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb85-1"><a href="" aria-label="1"></a><span class="fu">tar</span> <span class="at">-czf</span> results.tar.gz results/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb94"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb94-1"><a href="" aria-label="1"></a><span class="fu">tar</span> <span class="at">-czf</span> results.tar.gz results/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Extract:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb86"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb86-1"><a href="" aria-label="1"></a><span class="fu">tar</span> <span class="at">-xzf</span> results.tar.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb95"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb95-1"><a href="" aria-label="1"></a><span class="fu">tar</span> <span class="at">-xzf</span> results.tar.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="how-do-i-decode-tar.gz" class="slide level2">
 <h2>How do I decode <code>tar.gz</code>?</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb87"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb87-1"><a href="" aria-label="1"></a>tar = archive</span>
-<span id="cb87-2"><a href="" aria-label="2"></a> z   = gzip</span>
-<span id="cb87-3"><a href="" aria-label="3"></a> c   = create</span>
-<span id="cb87-4"><a href="" aria-label="4"></a> x   = extract</span>
-<span id="cb87-5"><a href="" aria-label="5"></a> f   = file</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Important</strong></p>
-</div>
-<div class="callout-content">
-<p><strong><code>tar.gz</code> = archive + gzip compression</strong></p>
-</div>
-</div>
-</div>
-</section></section>
-<section>
-<section id="editing-text-files" class="title-slide slide level1 center">
-<h1>11. Editing Text Files</h1>
-
-</section>
-<section id="what-if-vs-code-is-not-available-use-nano" class="slide level2">
-<h2>What if VS Code is not available? Use <code>nano</code></h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb88"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb88-1"><a href="" aria-label="1"></a><span class="fu">nano</span> notes.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Minimal controls:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb89"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb89-1"><a href="" aria-label="1"></a>Ctrl + O  → save</span>
-<span id="cb89-2"><a href="" aria-label="2"></a>Ctrl + X  → exit</span>
-<span id="cb89-3"><a href="" aria-label="3"></a>Ctrl + W  → search</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb96"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb96-1"><a href="" aria-label="1"></a>tar = archive</span>
+<span id="cb96-2"><a href="" aria-label="2"></a> z   = gzip</span>
+<span id="cb96-3"><a href="" aria-label="3"></a> c   = create</span>
+<span id="cb96-4"><a href="" aria-label="4"></a> x   = extract</span>
+<span id="cb96-5"><a href="" aria-label="5"></a> f   = file</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1122,29 +1368,59 @@ Text Stream Processing &amp; Pipeline Automation</p>
 <p><strong>Note</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>Why know it?</strong> On a remote server, your preferred GUI editor may not be available.</p>
+<p><strong><code>tar.gz</code> = archive + gzip compression</strong></p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="editing-text-files" class="title-slide slide level1 center">
+<h1>12. Editing Text Files</h1>
+
+</section>
+<section id="what-if-vs-code-isnt-available-use-nano" class="slide level2">
+<h2>What if VS Code isn’t available? Use <code>nano</code></h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb97"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb97-1"><a href="" aria-label="1"></a><span class="fu">nano</span> notes.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Essential shortcuts:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb98"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb98-1"><a href="" aria-label="1"></a>Ctrl + O  → save</span>
+<span id="cb98-2"><a href="" aria-label="2"></a>Ctrl + X  → exit</span>
+<span id="cb98-3"><a href="" aria-label="3"></a>Ctrl + W  → search</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><br></p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Why know it?</strong></p>
+<p>On a remote server, your preferred GUI editor may not be available. As a bioinformatician or data scientist, you will often work with <strong>institutional HPC clusters via SSH</strong>, where the terminal is your main interface.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="or-an-even-more-powerful-alternative-vim" class="slide level2">
 <h2>Or an even more powerful alternative: <code>vim</code></h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb90"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb90-1"><a href="" aria-label="1"></a><span class="ex">vim</span> notes.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb99"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb99-1"><a href="" aria-label="1"></a><span class="ex">vim</span> notes.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Vim is a powerful modal text editor. It can be extremely efficient, provided you can remember its many commands.</strong></p>
+<p><br></p>
 <p>Unlike <code>nano</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb91"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb91-1"><a href="" aria-label="1"></a>Normal mode  → navigate and run commands</span>
-<span id="cb91-2"><a href="" aria-label="2"></a>Insert mode  → type text</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb100"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb100-1"><a href="" aria-label="1"></a>Normal mode  → navigate and run commands</span>
+<span id="cb100-2"><a href="" aria-label="2"></a>Insert mode  → type text</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The basic workflow:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb92"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb92-1"><a href="" aria-label="1"></a>i       → start typing</span>
-<span id="cb92-2"><a href="" aria-label="2"></a>Esc     → return to Normal mode</span>
-<span id="cb92-3"><a href="" aria-label="3"></a>:w      → save</span>
-<span id="cb92-4"><a href="" aria-label="4"></a>:q      → quit</span>
-<span id="cb92-5"><a href="" aria-label="5"></a>:wq     → save + quit</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb101"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb101-1"><a href="" aria-label="1"></a>i       → start typing</span>
+<span id="cb101-2"><a href="" aria-label="2"></a>Esc     → return to Normal mode</span>
+<span id="cb101-3"><a href="" aria-label="3"></a>:w      → save</span>
+<span id="cb101-4"><a href="" aria-label="4"></a>:q      → quit</span>
+<span id="cb101-5"><a href="" aria-label="5"></a>:wq     → save + quit</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="want-to-learn-vim" class="slide level2">
 <h2>Want to learn <code>vim</code>?</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb93"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb93-1"><a href="" aria-label="1"></a><span class="ex">vimtutor</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb102"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb102-1"><a href="" aria-label="1"></a><span class="ex">vimtutor</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>A built-in interactive tutorial that teaches Vim’s core commands.</p>
+<p><br></p>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1163,63 +1439,63 @@ Text Stream Processing &amp; Pipeline Automation</p>
 </section></section>
 <section>
 <section id="final-command-cheatsheet" class="title-slide slide level1 center">
-<h1>12. Final Command Cheatsheet</h1>
+<h1>13. Final Command Cheatsheet</h1>
 
 </section>
 <section id="navigation-1" class="slide level2">
 <h2>Navigation</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb94"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb94-1"><a href="" aria-label="1"></a><span class="bu">pwd</span></span>
-<span id="cb94-2"><a href="" aria-label="2"></a><span class="fu">ls</span></span>
-<span id="cb94-3"><a href="" aria-label="3"></a><span class="fu">ls</span> <span class="at">-lah</span></span>
-<span id="cb94-4"><a href="" aria-label="4"></a><span class="bu">cd</span> DIR</span>
-<span id="cb94-5"><a href="" aria-label="5"></a><span class="bu">cd</span> ..</span>
-<span id="cb94-6"><a href="" aria-label="6"></a><span class="bu">cd</span> ~</span>
-<span id="cb94-7"><a href="" aria-label="7"></a><span class="bu">cd</span> /</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb103"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb103-1"><a href="" aria-label="1"></a><span class="bu">pwd</span></span>
+<span id="cb103-2"><a href="" aria-label="2"></a><span class="fu">ls</span></span>
+<span id="cb103-3"><a href="" aria-label="3"></a><span class="fu">ls</span> <span class="at">-lah</span></span>
+<span id="cb103-4"><a href="" aria-label="4"></a><span class="bu">cd</span> DIR</span>
+<span id="cb103-5"><a href="" aria-label="5"></a><span class="bu">cd</span> ..</span>
+<span id="cb103-6"><a href="" aria-label="6"></a><span class="bu">cd</span> ~</span>
+<span id="cb103-7"><a href="" aria-label="7"></a><span class="bu">cd</span> /</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="files-and-directories" class="slide level2">
 <h2>Files and directories</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb95"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb95-1"><a href="" aria-label="1"></a><span class="fu">mkdir</span> DIR</span>
-<span id="cb95-2"><a href="" aria-label="2"></a><span class="fu">mkdir</span> <span class="at">-p</span> A/B/C</span>
-<span id="cb95-3"><a href="" aria-label="3"></a><span class="fu">touch</span> FILE</span>
-<span id="cb95-4"><a href="" aria-label="4"></a><span class="fu">cp</span> SRC DEST</span>
-<span id="cb95-5"><a href="" aria-label="5"></a><span class="fu">cp</span> <span class="at">-r</span> DIR DEST</span>
-<span id="cb95-6"><a href="" aria-label="6"></a><span class="fu">mv</span> SRC DEST</span>
-<span id="cb95-7"><a href="" aria-label="7"></a><span class="fu">rm</span> FILE</span>
-<span id="cb95-8"><a href="" aria-label="8"></a><span class="fu">rm</span> <span class="at">-r</span> DIR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb104"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb104-1"><a href="" aria-label="1"></a><span class="fu">mkdir</span> DIR</span>
+<span id="cb104-2"><a href="" aria-label="2"></a><span class="fu">mkdir</span> <span class="at">-p</span> A/B/C</span>
+<span id="cb104-3"><a href="" aria-label="3"></a><span class="fu">touch</span> FILE</span>
+<span id="cb104-4"><a href="" aria-label="4"></a><span class="fu">cp</span> SRC DEST</span>
+<span id="cb104-5"><a href="" aria-label="5"></a><span class="fu">cp</span> <span class="at">-r</span> DIR DEST</span>
+<span id="cb104-6"><a href="" aria-label="6"></a><span class="fu">mv</span> SRC DEST</span>
+<span id="cb104-7"><a href="" aria-label="7"></a><span class="fu">rm</span> FILE</span>
+<span id="cb104-8"><a href="" aria-label="8"></a><span class="fu">rm</span> <span class="at">-r</span> DIR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="inspection" class="slide level2">
 <h2>Inspection</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb96"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb96-1"><a href="" aria-label="1"></a><span class="fu">cat</span> FILE</span>
-<span id="cb96-2"><a href="" aria-label="2"></a><span class="fu">head</span> FILE</span>
-<span id="cb96-3"><a href="" aria-label="3"></a><span class="fu">head</span> <span class="at">-n</span> 20 FILE</span>
-<span id="cb96-4"><a href="" aria-label="4"></a><span class="fu">tail</span> FILE</span>
-<span id="cb96-5"><a href="" aria-label="5"></a><span class="fu">less</span> FILE</span>
-<span id="cb96-6"><a href="" aria-label="6"></a><span class="fu">wc</span> FILE</span>
-<span id="cb96-7"><a href="" aria-label="7"></a><span class="fu">wc</span> <span class="at">-l</span> FILE</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb105"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb105-1"><a href="" aria-label="1"></a><span class="fu">cat</span> FILE</span>
+<span id="cb105-2"><a href="" aria-label="2"></a><span class="fu">head</span> FILE</span>
+<span id="cb105-3"><a href="" aria-label="3"></a><span class="fu">head</span> <span class="at">-n</span> 20 FILE</span>
+<span id="cb105-4"><a href="" aria-label="4"></a><span class="fu">tail</span> FILE</span>
+<span id="cb105-5"><a href="" aria-label="5"></a><span class="fu">less</span> FILE</span>
+<span id="cb105-6"><a href="" aria-label="6"></a><span class="fu">wc</span> FILE</span>
+<span id="cb105-7"><a href="" aria-label="7"></a><span class="fu">wc</span> <span class="at">-l</span> FILE</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="transfer" class="slide level2">
 <h2>Transfer</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb97"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb97-1"><a href="" aria-label="1"></a><span class="fu">wget</span> URL</span>
-<span id="cb97-2"><a href="" aria-label="2"></a><span class="ex">curl</span> URL</span>
-<span id="cb97-3"><a href="" aria-label="3"></a><span class="ex">curl</span> <span class="at">-O</span> URL</span>
-<span id="cb97-4"><a href="" aria-label="4"></a><span class="fu">rsync</span> SRC user@server:/path/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb106"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb106-1"><a href="" aria-label="1"></a><span class="fu">wget</span> URL</span>
+<span id="cb106-2"><a href="" aria-label="2"></a><span class="ex">curl</span> URL</span>
+<span id="cb106-3"><a href="" aria-label="3"></a><span class="ex">curl</span> <span class="at">-O</span> URL</span>
+<span id="cb106-4"><a href="" aria-label="4"></a><span class="fu">rsync</span> SRC user@server:/path/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="permissions-compression-editing" class="slide level2">
 <h2>Permissions, compression, editing</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb98"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb98-1"><a href="" aria-label="1"></a><span class="fu">chmod</span> +x script.sh</span>
-<span id="cb98-2"><a href="" aria-label="2"></a><span class="fu">chmod</span> u+x script.sh</span>
-<span id="cb98-3"><a href="" aria-label="3"></a><span class="fu">chown</span> user:group FILE</span>
-<span id="cb98-4"><a href="" aria-label="4"></a></span>
-<span id="cb98-5"><a href="" aria-label="5"></a><span class="fu">gzip</span> FILE</span>
-<span id="cb98-6"><a href="" aria-label="6"></a><span class="fu">gunzip</span> FILE.gz</span>
-<span id="cb98-7"><a href="" aria-label="7"></a></span>
-<span id="cb98-8"><a href="" aria-label="8"></a><span class="fu">tar</span> <span class="at">-cf</span> archive.tar DIR/</span>
-<span id="cb98-9"><a href="" aria-label="9"></a><span class="fu">tar</span> <span class="at">-xf</span> archive.tar</span>
-<span id="cb98-10"><a href="" aria-label="10"></a></span>
-<span id="cb98-11"><a href="" aria-label="11"></a><span class="fu">tar</span> <span class="at">-czf</span> archive.tar.gz DIR/</span>
-<span id="cb98-12"><a href="" aria-label="12"></a><span class="fu">tar</span> <span class="at">-xzf</span> archive.tar.gz</span>
-<span id="cb98-13"><a href="" aria-label="13"></a></span>
-<span id="cb98-14"><a href="" aria-label="14"></a><span class="fu">nano</span> FILE</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb107"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb107-1"><a href="" aria-label="1"></a><span class="fu">chmod</span> +x script.sh</span>
+<span id="cb107-2"><a href="" aria-label="2"></a><span class="fu">chmod</span> u+x script.sh</span>
+<span id="cb107-3"><a href="" aria-label="3"></a><span class="fu">chown</span> user:group FILE</span>
+<span id="cb107-4"><a href="" aria-label="4"></a></span>
+<span id="cb107-5"><a href="" aria-label="5"></a><span class="fu">gzip</span> FILE</span>
+<span id="cb107-6"><a href="" aria-label="6"></a><span class="fu">gunzip</span> FILE.gz</span>
+<span id="cb107-7"><a href="" aria-label="7"></a></span>
+<span id="cb107-8"><a href="" aria-label="8"></a><span class="fu">tar</span> <span class="at">-cf</span> archive.tar DIR/</span>
+<span id="cb107-9"><a href="" aria-label="9"></a><span class="fu">tar</span> <span class="at">-xf</span> archive.tar</span>
+<span id="cb107-10"><a href="" aria-label="10"></a></span>
+<span id="cb107-11"><a href="" aria-label="11"></a><span class="fu">tar</span> <span class="at">-czf</span> archive.tar.gz DIR/</span>
+<span id="cb107-12"><a href="" aria-label="12"></a><span class="fu">tar</span> <span class="at">-xzf</span> archive.tar.gz</span>
+<span id="cb107-13"><a href="" aria-label="13"></a></span>
+<span id="cb107-14"><a href="" aria-label="14"></a><span class="fu">nano</span> FILE</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <aside class="notes">
 <p>This section is a reference, not a teaching sequence. Consider exporting it separately as a one-page command sheet.</p>
 <style type="text/css">
@@ -1270,7 +1546,7 @@ Text Stream Processing &amp; Pipeline Automation</p>
 'previewLinksAuto': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
-'autoAnimateDuration': 1,
+'autoAnimateDuration': 0.6,
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
