@@ -1,6 +1,10 @@
 # FROM BULK &amp; scRNA-SEQ TO SPATIAL TRANSCRIPTOMICS for FIGHTING CANCER 2026
 
 ## Course Introduction
+
+- Study note: [L01_Study_Notes](./lecture-01/L01_Study_Notes.md)
+- Slides: [Google Drive](https://drive.google.com/drive/folders/1n-WbdUA1vVBAxCU-BmbGWOeqyd87TxZ4?usp=sharing)
+
 ##
 ## Introduction of Next Generation Sequencing (NGS)
 ##
