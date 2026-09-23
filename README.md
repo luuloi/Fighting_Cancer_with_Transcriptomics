@@ -13,7 +13,8 @@
 #### Lecture 02: Linux Environment & File System Navigation [Hoang – 23/09/2026]
 - Quizzes and homework: [Colab Notebook](https://colab.research.google.com/drive/1o2I1QGWwUN1RRgI10lGKkfgZSZpBuOEP?usp=sharing).
 - [Lecture slides](https://ht2905.github.io/spatial-transcriptomics-course-2026-lecture-slides/lecture-02/).
-- Youtube record.
+- [Youtube recording](https://www.youtube.com/watch?v=icM90av_Bzo&t=5286s).
+- [Study note](./lecture-02/lecture-02_study-notes.md).
 
 ### R
 
