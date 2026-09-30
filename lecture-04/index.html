@@ -1793,11 +1793,211 @@ Hoang Tran
 <p>That is the beginning of a <strong>reproducible computational workflow</strong>.</p>
 </div></div>
 </section></section>
-<section id="solution-to-the-annotation-audit-problem-work-in-progress.-will-be-updated-and-updated-before-the-lecture." class="title-slide slide level1 center">
-<h1>7. Solution to the Annotation Audit Problem (<strong>Work in Progress. Will be updated and updated before the lecture.</strong>)</h1>
+<section>
+<section id="solution-to-the-annotation-audit-problem" class="title-slide slide level1 center">
+<h1>7. Solution to the Annotation Audit Problem</h1>
 
 </section>
+<section id="back-to-our-opening-problem" class="slide level2">
+<h2>Back to Our Opening Problem</h2>
+<p>At the beginning of the lecture, we were given:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb163"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb163-1"><a href="" aria-label="1"></a>rnaseq_project/</span>
+<span id="cb163-2"><a href="" aria-label="2"></a></span>
+<span id="cb163-3"><a href="" aria-label="3"></a>├── annotation/</span>
+<span id="cb163-4"><a href="" aria-label="4"></a>│   ├── gencode_subset.gtf</span>
+<span id="cb163-5"><a href="" aria-label="5"></a>│   ├── gencode_subset.gtf.backup</span>
+<span id="cb163-6"><a href="" aria-label="6"></a>│   └── notes.txt</span>
+<span id="cb163-7"><a href="" aria-label="7"></a>│</span>
+<span id="cb163-8"><a href="" aria-label="8"></a>├── metadata/</span>
+<span id="cb163-9"><a href="" aria-label="9"></a>│   └── samples.tsv</span>
+<span id="cb163-10"><a href="" aria-label="10"></a>│</span>
+<span id="cb163-11"><a href="" aria-label="11"></a>└── results/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Our collaborator asked for a quick QC report.</p>
+<p><br></p>
+<p>Let’s solve the problem one question at a time.</p>
+</section>
+<section id="step-1-which-annotation-file-do-we-have" class="slide level2">
+<h2>Step 1 — Which Annotation File Do We Have?</h2>
+<p>Start by finding GTF files:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb164"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb164-1"><a href="" aria-label="1"></a><span class="fu">find</span> annotation <span class="at">-type</span> f <span class="at">-name</span> <span class="st">"*.gtf"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>We can now store the path in a variable:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb165"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb165-1"><a href="" aria-label="1"></a><span class="va">annotation_file</span><span class="op">=</span><span class="st">"annotation/gencode_subset.gtf"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="step-2-keep-only-gene-records" class="slide level2">
+<h2>Step 2 — Keep Only Gene Records</h2>
+<p>A GTF contains many types of records:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb166"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb166-1"><a href="" aria-label="1"></a>gene</span>
+<span id="cb166-2"><a href="" aria-label="2"></a>transcript</span>
+<span id="cb166-3"><a href="" aria-label="3"></a>exon</span>
+<span id="cb166-4"><a href="" aria-label="4"></a>CDS</span>
+<span id="cb166-5"><a href="" aria-label="5"></a>...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Our audit is about gene records.</p>
+<p><br></p>
+<p>The feature type is field 3:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb167"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb167-1"><a href="" aria-label="1"></a><span class="fu">awk</span> <span class="at">-F</span> <span class="st">'\t'</span> <span class="st">'$3 == "gene" {print}'</span> <span class="st">"</span><span class="va">$annotation_file</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote>
+<p>Keep the record when field 3 is <code>gene</code>.</p>
+</blockquote>
+</section>
+<section id="step-3-keep-protein-coding-genes" class="slide level2">
+<h2>Step 3 — Keep Protein-Coding Genes</h2>
+<p>GTF stores the gene biotype in the attributes:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb168"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb168-1"><a href="" aria-label="1"></a>gene_type "protein_coding"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>We can add this condition:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb169"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb169-1"><a href="" aria-label="1"></a><span class="fu">awk</span> <span class="at">-F</span> <span class="st">'\t'</span> <span class="dt">\</span></span>
+<span id="cb169-2"><a href="" aria-label="2"></a>  <span class="st">'$3 == "gene" &amp;&amp; $9 ~ /gene_type "protein_coding"/'</span> <span class="dt">\</span></span>
+<span id="cb169-3"><a href="" aria-label="3"></a>  <span class="st">"</span><span class="va">$annotation_file</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><br></p>
+<p>Now we’re asking:</p>
+<blockquote>
+<p>Is this a gene record? AND Is it protein-coding?</p>
+</blockquote>
+</section>
+<section id="step-4-restrict-the-audit-to-autosomes" class="slide level2">
+<h2>Step 4 — Restrict the Audit to Autosomes</h2>
+<p>Our audit defines autosomes as chromosomes:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb170"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb170-1"><a href="" aria-label="1"></a>chr1–chr22</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>We can describe that using regex:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb171"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb171-1"><a href="" aria-label="1"></a>^chr([1-9]|1[0-9]|2[0-2])$</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb172"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb172-1"><a href="" aria-label="1"></a><span class="fu">awk</span> <span class="at">-F</span> <span class="st">'\t'</span> <span class="dt">\</span></span>
+<span id="cb172-2"><a href="" aria-label="2"></a>  <span class="st">'$3 == "gene" &amp;&amp;</span></span>
+<span id="cb172-3"><a href="" aria-label="3"></a><span class="st">  $9 ~ /gene_type "protein_coding"/ &amp;&amp;</span></span>
+<span id="cb172-4"><a href="" aria-label="4"></a><span class="st">  $1 ~ /^chr([1-9]|1[0-9]|2[0-2])$/'</span> <span class="dt">\</span></span>
+<span id="cb172-5"><a href="" aria-label="5"></a>  <span class="st">"</span><span class="va">$annotation_file</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Now the filter means:</p>
+<ul>
+<li><p>field 3 = gene AND</p></li>
+<li><p>gene_type = protein_coding AND</p></li>
+<li><p>field 1 = chr1–chr22</p></li>
+</ul>
+<p>Notice how the regex is being used as part of the logic.</p>
+</section>
+<section id="step-5-find-duplicated-gene-ids" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Step 5 — Find Duplicated Gene IDs</h2>
+<p>The gene ID is stored inside field 9:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb173"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb173-1"><a href="" aria-label="1"></a>gene_id "ENSG00000123456";</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>First, keep only the attribute field:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb174"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb174-1"><a href="" aria-label="1"></a><span class="ex">...</span> <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f9</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then extract the gene ID:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb175"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb175-1"><a href="" aria-label="1"></a><span class="ex">...</span> <span class="kw">|</span> <span class="fu">sed</span> <span class="at">-n</span> <span class="st">'s/.*gene_id "\([^"]*\)".*/\1/p'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Now we have a simple list:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb176"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb176-1"><a href="" aria-label="1"></a>ENSG00000123456</span>
+<span id="cb176-2"><a href="" aria-label="2"></a>ENSG00000198765</span>
+<span id="cb176-3"><a href="" aria-label="3"></a>ENSG00000123456</span>
+<span id="cb176-4"><a href="" aria-label="4"></a>ENSG00000234567</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div data-id="constant">
+<p>Sort the IDs:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb177"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb177-1"><a href="" aria-label="1"></a><span class="ex">...</span> <span class="kw">|</span> <span class="fu">sort</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="step-5-find-duplicated-gene-ids-cont." class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Step 5 — Find Duplicated Gene IDs (Cont.)</h2>
+<div data-id="constant">
+<p>Sort the IDs:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb178"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb178-1"><a href="" aria-label="1"></a><span class="ex">...</span> <span class="kw">|</span> <span class="fu">sort</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Then count identical adjacent values:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb179"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb179-1"><a href="" aria-label="1"></a><span class="ex">...</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For example:</p>
+<pre><code>    1 ENSG00000198765
+    2 ENSG00000123456
+    1 ENSG00000234567</code></pre>
+<p>The duplicated gene is therefore the ID with a <strong>count greater than 1</strong>.</p>
+<p>We can filter for those:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb181"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb181-1"><a href="" aria-label="1"></a><span class="ex">...</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'$1 &gt; 1'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This gives us:</p>
+<blockquote>
+<p>Which gene IDs occur more than once?</p>
+</blockquote>
+</section>
+<section id="putting-the-duplicate-check-together" class="slide level2">
+<h2>Putting the Duplicate Check Together</h2>
+<p>The whole pipeline is now:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb182"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb182-1"><a href="" aria-label="1"></a><span class="fu">awk</span> <span class="at">-F</span> <span class="st">'\t'</span> <span class="dt">\</span></span>
+<span id="cb182-2"><a href="" aria-label="2"></a>  <span class="st">'$3 == "gene" &amp;&amp;</span></span>
+<span id="cb182-3"><a href="" aria-label="3"></a><span class="st">   $9 ~ /gene_type "protein_coding"/ &amp;&amp;</span></span>
+<span id="cb182-4"><a href="" aria-label="4"></a><span class="st">   $1 ~ /^chr([1-9]|1[0-9]|2[0-2])$/'</span> <span class="dt">\</span></span>
+<span id="cb182-5"><a href="" aria-label="5"></a>  <span class="st">"</span><span class="va">$annotation_file</span><span class="st">"</span> <span class="dt">\</span></span>
+<span id="cb182-6"><a href="" aria-label="6"></a>  <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f9</span> <span class="dt">\</span></span>
+<span id="cb182-7"><a href="" aria-label="7"></a>  <span class="kw">|</span> <span class="fu">sed</span> <span class="at">-n</span> <span class="st">'s/.*gene_id "\([^"]*\)".*/\1/p'</span> <span class="dt">\</span></span>
+<span id="cb182-8"><a href="" aria-label="8"></a>  <span class="kw">|</span> <span class="fu">sort</span> <span class="dt">\</span></span>
+<span id="cb182-9"><a href="" aria-label="9"></a>  <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> <span class="dt">\</span></span>
+<span id="cb182-10"><a href="" aria-label="10"></a>  <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'$1 &gt; 1'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
+<img data-src="assets/lecture-04_pipeline-demonstration-01.png" class="r-stretch"></section>
+<section id="step-6-extract-coordinates-and-calculate-genomic-span" class="slide level2">
+<h2>Step 6 — Extract Coordinates and Calculate Genomic Span</h2>
+<p>Now we need:</p>
+<ul>
+<li>chromosome</li>
+<li>start</li>
+<li>end</li>
+<li>span</li>
+</ul>
+<p>For a GTF record:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb183"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb183-1"><a href="" aria-label="1"></a>$1 = chromosome</span>
+<span id="cb183-2"><a href="" aria-label="2"></a>$4 = start</span>
+<span id="cb183-3"><a href="" aria-label="3"></a>$5 = end</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For inclusive GTF coordinates:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb184"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb184-1"><a href="" aria-label="1"></a>span = end - start + 1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="calculating-genomic-span-cont." class="slide level2">
+<h2>Calculating Genomic Span (Cont.)</h2>
+<div class="columns">
+<div class="column" data-id="content-left" style="width:50%;">
+<p>So:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb185"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb185-1"><a href="" aria-label="1"></a><span class="fu">awk</span> <span class="at">-F</span> <span class="st">'\t'</span> <span class="st">'$3 == "gene" &amp;&amp;</span></span>
+<span id="cb185-2"><a href="" aria-label="2"></a><span class="st">$9 ~ /gene_type "protein_coding"/ &amp;&amp;</span></span>
+<span id="cb185-3"><a href="" aria-label="3"></a><span class="st">$1 ~ /^chr([1-9]|1[0-9]|2[0-2])$/ {</span></span>
+<span id="cb185-4"><a href="" aria-label="4"></a><span class="st">  print $1, $4, $5, $5-$4+1</span></span>
+<span id="cb185-5"><a href="" aria-label="5"></a><span class="st">}</span></span>
+<span id="cb185-6"><a href="" aria-label="6"></a><span class="st">'</span> <span class="st">"</span><span class="va">$annotation_file</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" data-id="content-right" style="width:50%;">
+<p><img data-src="assets/lecture-04_genomic-calculation.png"></p>
+</div></div>
+<p>The last column is <strong>calculated</strong> rather than extracted.</p>
+<p>That is where <code>awk</code> becomes especially useful:</p>
+<blockquote>
+<p>read fields → apply logic → calculate → print</p>
+</blockquote>
+</section>
+<section id="nice.-where-would-we-go-from-here" class="slide level2">
+<h2>Nice. Where would we go from here?</h2>
+<p>With these tools, you can perform further analysis by yourself, then redirect the output directly to a file using <strong>output redirection</strong>.</p>
+<p>By now, you probably noticed that some commands, especially the <code>awk</code> pipeline, were getting harder to read. This is often the point where a script or a <strong>higher-level language</strong> such as Python becomes useful.</p>
+<div class="columns">
+<div class="column" data-id="content-left" style="width:50%;">
+<p><br></p>
+<p><img data-src="assets/python-logo.svg" style="width:45.0%"></p>
+</div><div class="column" data-id="content-right" style="width:50%;">
+<p><br></p>
+<p><img data-src="assets/r-logo.webp" style="width:45.0%"></p>
+</div></div>
+</section>
+<section id="example-when-you-should-consider-using-another-tool" class="slide level2">
+<h2>Example: When You Should Consider Using Another Tool</h2>
+<p>Instead of printing the results to the terminal, we want to create a TSV report.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb186"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb186-1"><a href="" aria-label="1"></a><span class="va">report_file</span><span class="op">=</span><span class="st">"results/annotation_audit.tsv"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb187"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb187-1"><a href="" aria-label="1"></a><span class="fu">awk</span> <span class="at">-F</span> <span class="st">'\t'</span> <span class="st">'</span></span>
+<span id="cb187-2"><a href="" aria-label="2"></a><span class="st">BEGIN {</span></span>
+<span id="cb187-3"><a href="" aria-label="3"></a><span class="st">    OFS = "\t"</span></span>
+<span id="cb187-4"><a href="" aria-label="4"></a><span class="st">    print "gene_id", "gene_name", "chromosome", "start", "end", "span_bp"</span></span>
+<span id="cb187-5"><a href="" aria-label="5"></a><span class="st">}</span></span>
+<span id="cb187-6"><a href="" aria-label="6"></a><span class="st">$3 == "gene" &amp;&amp; $9 ~ /gene_type "protein_coding"/ &amp;&amp; $1 ~ /^chr([1-9]|1[0-9]|2[0-2])$/ {</span></span>
+<span id="cb187-7"><a href="" aria-label="7"></a><span class="st">    gene_id = $9</span></span>
+<span id="cb187-8"><a href="" aria-label="8"></a><span class="st">    sub(/.*gene_id "/, "", gene_id)</span></span>
+<span id="cb187-9"><a href="" aria-label="9"></a><span class="st">    sub(/".*/, "", gene_id)</span></span>
+<span id="cb187-10"><a href="" aria-label="10"></a><span class="st">    gene_name = $9</span></span>
+<span id="cb187-11"><a href="" aria-label="11"></a><span class="st">    sub(/.*gene_name "/, "", gene_name)</span></span>
+<span id="cb187-12"><a href="" aria-label="12"></a><span class="st">    sub(/".*/, "", gene_name)</span></span>
+<span id="cb187-13"><a href="" aria-label="13"></a><span class="st">    span = $5 - $4 + 1</span></span>
+<span id="cb187-14"><a href="" aria-label="14"></a><span class="st">    print gene_id, gene_name, $1, $4, $5, span</span></span>
+<span id="cb187-15"><a href="" aria-label="15"></a><span class="st">}</span></span>
+<span id="cb187-16"><a href="" aria-label="16"></a><span class="st">'</span> <span class="st">"</span><span class="va">$annotation_file</span><span class="st">"</span> <span class="op">&gt;</span> <span class="st">"</span><span class="va">$report_file</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The results are good, but <strong>reading and maintaining</strong> this kind of code would be a pain.</p>
+</section></section>
 <section id="thank-you" class="title-slide slide level1 center">
 <h1>Thank You!</h1>
 
