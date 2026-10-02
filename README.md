@@ -21,6 +21,7 @@
 - [Lecture slides](https://ht2905.github.io/spatial-transcriptomics-course-2026-lecture-slides/lecture-04).
 - [Youtube recording](https://www.youtube.com/live/eahKvEfOgLk?si=4jjvIdzO6q3iKriU).
 - Study notes: To be added.
+- The GTF file used in the lecture's opening problem: [`gencode_subset.gtf`](lecture-04/rnaseq_project/annotation/gencode_subset.gtf).
 
 ## MODULE II: Introduction to Bulk RNA-seq
 
