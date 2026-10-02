@@ -17,7 +17,7 @@
 
 ### Lecture 04: Text Stream Processing & Pipeline Automation [Hoang – 30/09/2026]
 
-- Quizzes and homework: To be added.
+- Quizzes and homework: [Colab Notebook](https://colab.research.google.com/drive/1UNHppp8ae7l1IPzVrL5NSorNyxvtUZgx?usp=sharing).
 - [Lecture slides](https://ht2905.github.io/spatial-transcriptomics-course-2026-lecture-slides/lecture-04).
 - [Youtube recording](https://www.youtube.com/live/eahKvEfOgLk?si=4jjvIdzO6q3iKriU).
 - Study notes: To be added.
