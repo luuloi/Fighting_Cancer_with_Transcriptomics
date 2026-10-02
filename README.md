@@ -13,7 +13,7 @@
 - Quizzes and homework: [Colab Notebook](https://colab.research.google.com/drive/1o2I1QGWwUN1RRgI10lGKkfgZSZpBuOEP?usp=sharing).
 - [Lecture slides](https://ht2905.github.io/spatial-transcriptomics-course-2026-lecture-slides/lecture-02/).
 - [Youtube recording](https://www.youtube.com/live/icM90av_Bzo?si=N4AjJpTIJwpXuU3e).
-- Study notes: [L02_Study_Notes](./lecture-02/lecture-02_study-notes.md).
+- Study notes: [`lecture-02_study-notes`](./lecture-02/lecture-02_study-notes.md).
 
 ### Lecture 04: Text Stream Processing & Pipeline Automation [Hoang – 30/09/2026]
 
