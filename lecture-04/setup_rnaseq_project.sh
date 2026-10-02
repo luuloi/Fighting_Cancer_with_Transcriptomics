@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-mkdir -p /projects/rnaseq_project/{annotation,reads,metadata,variants,expression,results}
+# ADDED 'scripts' to the directory tree
+mkdir -p /projects/rnaseq_project/{annotation,reads,metadata,variants,expression,results,scripts}
 
 # Now create the small practice datasets:
 
@@ -17,6 +18,17 @@ Tumor_03	P005	tumor	B3
 EOF
 
 cp metadata/samples.tsv metadata/old_samples.tsv
+
+# ADD hidden analysis notes file for Section 14
+cat > metadata/.analysis_notes.tsv <<'EOF'
+sample_id	qc_status	mapped_reads	notes
+Tumor_01	QC_PASS	45000000	good_quality
+tumor_02	QC_FAIL	12000000	low_reads
+Normal_01	QC_PASS	51000000	good_quality
+normal_02	QC_PASS	48000000	good_quality
+Tumor_03	QC_PASS	55000000	good_quality
+Tumor_01	QC_PASS	45000000	duplicate_entry
+EOF
 
 cat > variants/variants.tsv <<'EOF'
 variant_id	gene	chromosome	consequence	clinical_significance	sample
