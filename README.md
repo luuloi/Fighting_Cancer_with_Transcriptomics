@@ -23,6 +23,13 @@
 - Study notes: To be added.
 - The GTF file used in the lecture's opening problem: [`gencode_subset.gtf`](lecture-04/rnaseq_project/annotation/gencode_subset.gtf).
 
+### Lecture 05: R Programming Fundamentals – Core Syntax, Data Types & Computational Logic [Phong – 07/10/2026]
+
+- Quizzes and homework: [Colab Notebook](https://colab.research.google.com/drive/1YygFKdoSx2Nw2GFHLNvxZvift1NAlmtE?usp=sharing).
+- [Lecture slides](./lecture-05/lecture-05_slides.html).
+- Youtube recording (To be added).
+- Study notes: [`lecture-05_study-notes`](./lecture-05/lecture-05_study-notes.md).
+
 ## MODULE II: Introduction to Bulk RNA-seq
 
 ### Lecture 03: Bulk RNA-seq Foundations & Experimental Design [Dr. Loi – 27/09/2026]
@@ -30,6 +37,12 @@
 - Study notes: [L03_Study_Notes](./lecture-03/L03_Study_Notes.md).
 - Slides: [Google Drive](https://drive.google.com/drive/folders/1n-WbdUA1vVBAxCU-BmbGWOeqyd87TxZ4?usp=sharing).
 - [Youtube recording](https://www.youtube.com/live/K_igEd_3sWA?si=qYm8JzNXNUDeP9MU).
+
+### Lecture 03: Bulk RNA-seq Foundations & Experimental Design (cont.) [Dr. Loi – 04/10/2026]
+
+- Study notes: tbd.
+- Slides: [Google Drive](https://drive.google.com/drive/folders/1n-WbdUA1vVBAxCU-BmbGWOeqyd87TxZ4?usp=sharing).
+- [Youtube recording](https://www.youtube.com/live/-hZBZiq2mCw?si=AbHbEtOo0OK4sZ8y).
 
 ## MODULE III: Introduction to Single-cell RNA-seq
 
