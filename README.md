@@ -26,7 +26,7 @@
 ### Lecture 05: R Programming Fundamentals – Core Syntax, Data Types & Computational Logic [Phong – 07/10/2026]
 
 - Quizzes and homework: [Colab Notebook](https://colab.research.google.com/drive/1YygFKdoSx2Nw2GFHLNvxZvift1NAlmtE?usp=sharing).
-- [Lecture slides](./lecture-05/lecture-05_slides.html).
+- [Lecture slides](https://mashxp.github.io/Spatial_Transcriptomics_Course/FCWT_2026/lecture-05/lecture-05_slides.html).
 - Youtube recording (To be added).
 - Study notes: [`lecture-05_study-notes`](./lecture-05/lecture-05_study-notes.md).
 
