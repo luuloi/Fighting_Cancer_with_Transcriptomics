@@ -10,8 +10,12 @@
 
 - Study notes: [L01_Study_Notes](./lecture-01/L01_Study_Notes.md).
 - Lecture slides: 
-  - Lecture 00: [PDF](https://drive.google.com/file/d/1guh1G5dC1myQmzsNCJbuoGgy3nyaABL7/view?usp=drive_link).
-  - Lecture 01: [PDF](https://drive.google.com/file/d/1DIhqWNs462GVI8v9JIvpsNiNZ68p-FUT/view?usp=drive_link).
+  - Lecture 00: 
+    - [PDF](https://drive.google.com/file/d/1guh1G5dC1myQmzsNCJbuoGgy3nyaABL7/view?usp=drive_link).
+    - [PPTX](https://docs.google.com/presentation/d/1DNf39gqTKCPhkz-Ajh1vFb5D312hFYiy/edit?usp=drive_link&ouid=103569893297275501178&rtpof=true&sd=true).
+  - Lecture 01: 
+    - [PDF](https://drive.google.com/file/d/1DIhqWNs462GVI8v9JIvpsNiNZ68p-FUT/view?usp=drive_link).
+    - [PPTX](https://docs.google.com/presentation/d/1k9yDgFgMpDc15IpFv9lkqmQMKfy-8HXk/edit?usp=drive_link&ouid=103569893297275501178&rtpof=true&sd=true)
 - [Youtube recording](https://www.youtube.com/live/JQL7EjZVOYE?si=rAE5p6R2l-4cnOq3).
 
 ### Lecture 02: Linux Environment & File System Navigation [Hoang – 23/09/2026]
@@ -42,14 +46,18 @@
 
 - Study notes: [L03_Study_Notes](./lecture-03/L03_Study_Notes.md).
 - Lecture slides:
-  - Lecture 03: [PDF](https://drive.google.com/file/d/1gF_c2NSP-TvirN9BkkM0UsMIHNL5y1TO/view?usp=drive_link).
+  - Lecture 03: 
+    - [PDF](https://drive.google.com/file/d/1gF_c2NSP-TvirN9BkkM0UsMIHNL5y1TO/view?usp=drive_link).
+    - [PPTX](https://docs.google.com/presentation/d/18CqBaW4ozymCpRSEfBKzCnwlSOldgUPY/edit?usp=drive_link&ouid=103569893297275501178&rtpof=true&sd=true).
 - [Youtube recording](https://www.youtube.com/live/K_igEd_3sWA?si=qYm8JzNXNUDeP9MU).
 
 ### Lecture 03: Bulk RNA-seq Foundations & Experimental Design (cont.) [Dr. Loi – 04/10/2026]
 
 - Study notes: tbd.
 - Lecture slides:
-  - Lecture 03 (cont.): [PDF](https://drive.google.com/file/d/1gF_c2NSP-TvirN9BkkM0UsMIHNL5y1TO/view?usp=drive_link).
+  - Lecture 03 (cont.): 
+    - [PDF](https://drive.google.com/file/d/1gF_c2NSP-TvirN9BkkM0UsMIHNL5y1TO/view?usp=drive_link).
+    - [PPTX](https://docs.google.com/presentation/d/18CqBaW4ozymCpRSEfBKzCnwlSOldgUPY/edit?usp=drive_link&ouid=103569893297275501178&rtpof=true&sd=true).
 - [Youtube recording](https://www.youtube.com/live/-hZBZiq2mCw?si=AbHbEtOo0OK4sZ8y).
 
 ## MODULE III: Introduction to Single-cell RNA-seq
