@@ -37,7 +37,9 @@
 
 - Quizzes and homework: [Colab Notebook](https://colab.research.google.com/drive/1YygFKdoSx2Nw2GFHLNvxZvift1NAlmtE?usp=sharing).
 - [Lecture slides](https://mashxp.github.io/Spatial_Transcriptomics_Course/FCWT_2026/lecture-05/lecture-05_slides.html).
-- Youtube recording (To be added).
+- Youtube recording:
+  - [Part 1](https://www.youtube.com/live/TSokyWAWZ4I?si=paWUeaa3ezOaBgTU).
+  - [Part 2](https://www.youtube.com/live/OqgwmV5ThF8?si=9OXXQCeOclVELnZv).
 - Study notes: [`lecture-05_study-notes`](./lecture-05/lecture-05_study-notes.md).
 
 ## MODULE II: Introduction to Bulk RNA-seq
