@@ -55,12 +55,21 @@
 
 ### Lecture 03: Bulk RNA-seq Foundations & Experimental Design (cont.) [Dr. Loi – 04/10/2026]
 
-- Study notes: tbd.
+- Study notes: [L03_Study_Notes](./lecture-03/L03_Study_Notes.md).
 - Lecture slides:
   - Lecture 03 (cont.): 
     - [PDF](https://drive.google.com/file/d/1gF_c2NSP-TvirN9BkkM0UsMIHNL5y1TO/view?usp=drive_link).
     - [PPTX](https://docs.google.com/presentation/d/18CqBaW4ozymCpRSEfBKzCnwlSOldgUPY/edit?usp=drive_link&ouid=103569893297275501178&rtpof=true&sd=true).
 - [Youtube recording](https://www.youtube.com/live/-hZBZiq2mCw?si=AbHbEtOo0OK4sZ8y).
+
+### Lecture 03: Bulk RNA-seq Foundations & Experimental Design (Part 3) [Dr. Loi – 11/10/2026]
+
+- Study notes: [L03_Study_Notes](./lecture-03/L03_Study_Notes.md).
+- Lecture slides:
+  - Lecture 03 (Part 3): 
+    - [PDF](https://drive.google.com/file/d/1Etmc888WNqakaOrtwKy_bQnizwr9_tVr/view?usp=drive_link).
+    - [PPTX](https://docs.google.com/presentation/d/1Wcm8txRroVMI8GN15gRMM5Dw3Kt1lZUY/edit?usp=drive_link&ouid=103569893297275501178&rtpof=true&sd=true).
+- [Youtube recording](https://www.youtube.com/live/yKO0on1ngts?si=VbQWiJpH2Ndv8ZlA).
 
 ## MODULE III: Introduction to Single-cell RNA-seq
 
