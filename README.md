@@ -42,6 +42,15 @@
   - [Part 2](https://www.youtube.com/live/OqgwmV5ThF8?si=9OXXQCeOclVELnZv).
 - Study notes: [`lecture-05_study-notes`](./lecture-05/lecture-05_study-notes.md).
 
+### Lecture 06: R Data Manipulation & Management – Data Structures, File I/O & Metadata (Part 1) [Phong – 14/10/2026]
+
+- Quizzes and homework: tbd.
+- [Lecture slides](https://mashxp.github.io/Spatial_Transcriptomics_Course/FCWT_2026/lecture-06/lecture-06_slides.html).
+- Youtube recording:
+  - [Part 1](https://www.youtube.com/live/VECPN6S2BnY?si=MdnqjVDL8-frhb-0).
+- Study notes: [`lecture-06_study-notes`](./lecture-06/lecture-06_study-notes.md).
+
+
 ## MODULE II: Introduction to Bulk RNA-seq
 
 ### Lecture 03: Bulk RNA-seq Foundations & Experimental Design [Dr. Loi – 27/09/2026]
