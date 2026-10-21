@@ -44,10 +44,16 @@
 
 ### Lecture 06: R Data Manipulation & Management – Data Structures, File I/O & Metadata (Part 1) [Phong – 14/10/2026]
 
-- Quizzes and homework: tbd.
+- Quizzes and homework: [Colab Notebook](https://colab.research.google.com/drive/1piKzsYlBzeE_aCngwLGN7eK7ujV9vg6K?usp=sharing).
 - [Lecture slides](https://mashxp.github.io/Spatial_Transcriptomics_Course/FCWT_2026/lecture-06/lecture-06_slides.html).
-- Youtube recording:
-  - [Part 1](https://www.youtube.com/live/VECPN6S2BnY?si=MdnqjVDL8-frhb-0).
+- [Youtube recording](https://www.youtube.com/live/VECPN6S2BnY?si=MdnqjVDL8-frhb-0).
+- Study notes: [`lecture-06_study-notes`](./lecture-06/lecture-06_study-notes.md).
+
+### Lecture 06: R Data Manipulation & Management – Data Structures, File I/O & Metadata (Part 2) [Phong – 18/10/2026]
+
+- Quizzes and homework: [Colab Notebook](https://colab.research.google.com/drive/1piKzsYlBzeE_aCngwLGN7eK7ujV9vg6K?usp=sharing).
+- [Lecture slides](https://mashxp.github.io/Spatial_Transcriptomics_Course/FCWT_2026/lecture-06/lecture-06_slides.html).
+- [Youtube recording](https://www.youtube.com/live/nD-u2-YFVDM?si=UcK8QuFnZ3tE76wf).
 - Study notes: [`lecture-06_study-notes`](./lecture-06/lecture-06_study-notes.md).
 
 
@@ -79,6 +85,14 @@
     - [PDF](https://drive.google.com/file/d/1Etmc888WNqakaOrtwKy_bQnizwr9_tVr/view?usp=drive_link).
     - [PPTX](https://docs.google.com/presentation/d/1Wcm8txRroVMI8GN15gRMM5Dw3Kt1lZUY/edit?usp=drive_link&ouid=103569893297275501178&rtpof=true&sd=true).
 - [Youtube recording](https://www.youtube.com/live/yKO0on1ngts?si=VbQWiJpH2Ndv8ZlA).
+
+### Lecture 07: FASTQ Processing, Quality Control & Read Trimming [Quỳnh – 21/10/2026]
+
+- Lecture slides:
+  - [PDF](https://drive.google.com/file/d/1K9mqp88CKxoVtDRH4s-8u6MUl2az8_93/view?usp=drive_link).
+  - [PPTX](https://docs.google.com/presentation/d/1x98viSsJbdZombaAmilje-4t4txagyYM/edit?usp=drive_link&ouid=103569893297275501178&rtpof=true&sd=true).
+- [Youtube recording](https://www.youtube.com/live/qyiUTJYK36M?si=5GbGov-qexkxsSNg).
+- Study notes: [`lecture-07_study-notes`](./lecture-07/lecture-07_study-notes.md).
 
 ## MODULE III: Introduction to Single-cell RNA-seq
 
