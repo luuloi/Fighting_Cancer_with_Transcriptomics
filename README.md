@@ -94,6 +94,15 @@
 - [Youtube recording](https://www.youtube.com/live/qyiUTJYK36M?si=5GbGov-qexkxsSNg).
 - Study notes: [`lecture-07_study-notes`](./lecture-07/lecture-07_study-notes.md).
 
+### Lecture 08: Reference Genome Indexing, STAR Alignment, Post-Alignment QC & featureCounts [Phong – 25/10/2026]
+
+- Quizzes and homework: [Colab Notebook](https://colab.research.google.com/drive/1jnt1hra6XeeAz3QdFKONT9C9a3iXw7V1?usp=sharing).
+- [Lecture slides](https://mashxp.github.io/Spatial_Transcriptomics_Course/FCWT_2026/lecture-08/lecture-08_slides.html).
+- Youtube recording:
+  - Part 1: Processing.
+  - [Part 2](https://www.youtube.com/live/oVkNUDqU1PU?si=8GL1u71SpoPKqebn).
+- Study notes: To be added (will be provided after Part 1 video finishes processing).
+
 ## MODULE III: Introduction to Single-cell RNA-seq
 
 ## MODULE IV: Intronduction to Spatial Transcriptomics

@@ -1,0 +1,1575 @@
+---
+title: "Reference Genome Indexing, STAR Alignment, Post-Alignment QC & featureCounts"
+subtitle: "Lecture 8 · Module II · BU1.3"
+author: "Lecturer: Dinh Chan Phong"
+date: "October 25, 2026"
+date-format: "MMMM D, YYYY"
+format:
+  revealjs:
+    theme: simple
+    embed-resources: true
+    css:
+      - ../slides.css
+      - slides-light.css
+    transition: slide
+    slide-number: true
+    code-line-numbers: false
+    highlight-style: github
+    preview-links: auto
+    footer: "Fighting Cancer with Transcriptomics · Lecture 8"
+execute:
+  echo: true
+  eval: false
+sections:
+  - "Review: Clean Reads, Clean Decisions"
+  - "The Alignment Problem"
+  - "STAR 101"
+  - "Reading a BAM"
+  - "QC: Trust, but Verify"
+  - "From BAM to Counts"
+filters:
+  - ../agenda.lua
+---
+
+## 🗺️ Where We Are
+
+![](../_assets/course_map3.png){fig-align="center" width="60%"}
+
+::: {.callout-note}
+Last week: **clean reads**. Today: **an address for every read**. Space Ranger runs STAR for Visium — so this is not a detour.
+:::
+
+---
+
+### 📦 The Data You Will Align
+
+| Field | Value |
+|---|---|
+| Sample | `SRR8836894` — GSM3702795, PC9 control, GSE129221 |
+| Layout | paired-end, 2 × 150 bp |
+| Reads | 5,000 pairs |
+| Reference | GRCh38 |
+| Annotation | Ensembl 115 — 6,661 genes, 44,417 transcripts |
+| Tools | STAR 2.7.11b · samtools 1.19.2 · featureCounts 2.1.1 |
+
+::: {.callout-note}
+We run FastQC, trim with fastp, and check the result before alignment. Everything today uses **this one sample** — the alignment numbers on the slides are the numbers you will see in your notebook.
+:::
+
+---
+
+### ⏱️ No Notes, No Peeking
+
+**Three questions. Sixty seconds each. Write your answer before I reveal it.**
+
+Reading the answer twice teaches you nothing. Getting it wrong once and correcting it does.
+
+---
+
+### ⚡ Q1 — What Is Line 4?
+
+<pre class="fastq-record"><code>@SRR8836894.1 1/1
+GTCGGAGCACATCTTGCTGGCCCAGGTGTTCAGCAAGATGGAGCAGGTGTCTGGCGTG
++
++AFA<strong class="q40">I</strong>&lt;FFF77&lt;AF-AAF7FAAJJJ7JFAJ-FFF-FF--7---F&lt;&lt;F&lt;AJJFFAFJJAJ-</code></pre>
+
+**Line 4 is a quality string.** In it, the character **`I`** appears.
+
+1. What does `I` mean?
+2. What is the probability that base is wrong?
+
+**ASCII table (excerpt)** — use it to decode `I`:
+
+| ASCII | 70 | 71 | 72 | 73 | 74 |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| Char | `F` | `G` | `H` | **`I`** | `J` |
+
+<div class="small muted">Phred+33: <strong>Phred = ASCII − 33</strong>.</div>
+
+---
+
+### ✅ A1 — Quality, Position by Position
+
+1. **What does `I` mean?** From the table, `I` is ASCII 73. Phred+33: **73 − 33 = Q40**.
+2. **What is the probability that base is wrong?** 10<sup>−4</sup> — **one wrong base in 10,000**.
+
+$$P(\text{error}) = 10^{-Q/10} = 10^{-4}$$
+
+- Q30 = 1 in 1,000. Q20 = 1 in 100.
+- The quality string is **positionally locked** to the sequence: base 57 and quality 57 describe the same nucleotide.
+
+::: {.callout-note}
+A trimmer edits **line 2 and line 4 together**. Editing only one corrupts the record.
+:::
+
+---
+
+### ⚡ Q2 — Do You Trim?
+
+![](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc.png){fig-align="center" width="65%"}
+
+<div class="credit">FastQC project, Babraham Institute (Andrew Andrews)</div>
+
+**Does this require trimming? If yes, exactly what — and what do you leave alone?**
+
+---
+
+### ✅ A2 — Trim What the Plot Shows
+
+**Trim adapters and the low-quality tail. Do not trim the whole read.**
+
+- Adapter read-through means the insert was shorter than 150 bp.
+- The last ~30 bp carry most of the errors.
+- A typical setting: Q20–Q25 tail trim, minimum length 30–36.
+
+**In this lecture, the trimming is already done — we inherit the cleaned files.**
+
+::: {.callout-important}
+Trimming is not a ritual. **The plot is the evidence.** A clean library does not need aggressive trimming — and over-trimming creates “too short” reads that never align.
+:::
+
+---
+
+### ⚡ Q3 — Can STAR Run?
+
+After trimming:
+
+- `R1` has **4,998,000** records.
+- `R2` has **5,000,000** records.
+
+**Can you align these two files together?**
+
+---
+
+### ✅ A3 — Mates Must Stay in Lockstep
+
+**No.** STAR reads mate 1 and mate 2 together, record by record. Unequal counts mean the pairing is broken.
+
+First check:
+
+```bash
+wc -l R1.fastq R2.fastq    # both must be equal, and divisible by 4
+```
+
+Usual cause: the trimmer ran in single-end mode, or one mate was filtered out.
+
+::: {.callout-note}
+Before alignment, prove the two files still describe the **same fragments**. This is a 5-second check that saves an hour.
+:::
+
+---
+
+
+## 🔁 1. Review: Clean Reads, Clean Decisions
+
+::: {.agenda data-section="1"}
+:::
+
+---
+
+### 🖥️ Colab Session — QC and Trim
+
+- Upload `lecture-08-data.tar.gz`; unpack it into `data/`.
+- Install the tools; run the mate-count and FASTQ pre-flight checks.
+- Run **FastQC → fastp → FastQC → MultiQC**.
+
+::: {.callout-important}
+Trim adapters and the 3′ tail — not the whole read.
+
+**Come back when:** trimmed mates have equal line counts and the MultiQC report is open.
+:::
+
+---
+
+## 🧩 2. The Alignment Problem
+
+::: {.agenda data-section="2"}
+:::
+
+---
+
+### We have our reads ready… Now what?
+
+A read is a 150-letter fragment. The genome is 3 billion letters.
+
+- **RefSeq (3 Gbp):** <code><strong>ACGTA</strong>GCTTAGTTGC<strong>ACGTA</strong></code>
+- **A read (150 bp):** <code><strong>ACGTA</strong></code>
+
+**Where does this read belong?**
+
+---
+
+
+### What “Align” Means
+**Alignment = the position and strand where that fragment best matches the reference.**
+
+![](https://training.galaxyproject.org/training-material/topics/sequence-analysis/images/mapping/mapping.png){fig-align="center" width="70%"}
+
+<div class="credit">Galaxy Training Network, “Mapping” tutorial (J. Wolff, B. Batut, H. Koch), CC BY 4.0</div>
+
+::: {.callout-note}
+“Where does it map?” is not one question. It is **where, how well, and how sure**.
+:::
+
+---
+
+### Why Exact Matching Fails? — Errors & Variants
+
+![](../_assets/exact_match_variants.png){fig-align="center" width="88%"}
+
+- **Sequencing errors:** ~0.1–1% of bases are wrong.
+- **Variants:** a SNP or indel can still be the correct read.
+
+::: {.callout-important}
+One mismatch breaks an exact match — even when the read is biologically correct.
+:::
+
+---
+
+### Why Exact Matching Fails? — Repeats
+
+![](../_assets/repeat_multi_mapping.png){fig-align="center" width="85%"}
+
+Millions of bases occur in many places. One read can have dozens of equally good homes.
+
+::: {.callout-note}
+Exact matching returns many hits; the aligner must choose.
+:::
+
+---
+
+### Why Exact Matching Fails? — Strandedness
+
+![](../_assets/strandedness.png){fig-align="center" width="85%"}
+
+Every read has a reverse complement. The search must consider both orientations.
+
+::: {.callout-note}
+A perfect match on the reverse strand is still a perfect match.
+:::
+
+---
+
+### RNASeq data is astronomically HUGE!
+
+**150 bp** against **3 Gbp**.
+
+::: {.callout-important}
+Naive search: 3 Gbp × 50 M reads. **Impossible.** The index makes it possible.
+:::
+
+---
+
+### The RNA-seq Twist: Splicing
+
+![](../_assets/splicing_before_after.png){fig-align="center" width="88%"}
+
+<div class="quote">
+The read is contiguous. The genome is not.
+</div>
+
+An RNA-seq read can span an exon–exon junction. The aligner must **split the read** and invent an intron — not reject it as a bad match.
+
+---
+
+### Two Ways to Align
+
+| | Genome aligner | Pseudo-aligner |
+|---|---|---|
+| Examples | STAR, HISAT2 | salmon, kallisto |
+| Output | **BAM** with coordinates | counts, no BAM |
+| Splicing | explicit junctions | k-mer compatibility |
+| Use here | QC, IGV, counting, Space Ranger | fast expression estimates |
+
+::: {.callout-note}
+We need a **BAM**: it is the object we QC, the object we count, and the object Space Ranger produces. That is why we use STAR.
+:::
+
+---
+
+### Key Notes — The Alignment Problem
+
+- **A read is contiguous. The genome is not.** A 100 bp read can be 40 bp exon 1 + 60 bp exon 2.
+- **Exact matching fails** on sequencing errors, repeats, strand, and splicing.
+- **Split alignment:** `40M + intron + 60M`. The aligner searches for the gap — it does not reject the read.
+- **We need a BAM**, so we choose **STAR**.
+
+---
+
+### We know the problem. Now the machine.
+
+The aligner must find a short, imperfect, possibly split match in 3 billion letters.
+
+::: {.callout-note}
+Next: how STAR solves it — the suffix index, the maximal mappable prefix, and the stitch across introns.
+:::
+
+---
+
+## ⚙️ 3. STAR 101
+
+::: {.agenda data-section="3"}
+:::
+
+---
+
+### STAR — Spliced Transcripts Alignment to a Reference
+
+<div class="quote">
+STAR indexes every suffix of the genome, finds the longest exact prefix of each read, extends it, and stitches the pieces across introns.
+</div>
+
+::: {.callout-note}
+Dobin et al., *Bioinformatics* 2013. “Ultrafast” is not magic — it is an uncompressed index held in RAM.
+:::
+
+---
+
+### What STAR Does
+
+**Four moves — for every read:**
+
+1. **Index** — build the search structure once.
+2. **Seed** — find the maximal mappable prefix (MMP).
+3. **Extend** — add mismatches and gaps, scoring each extension.
+4. **Stitch** — re-seed downstream when an exon boundary interrupts.
+
+---
+
+### What STAR Needs
+
+| Input | What it is | Why STAR needs it |
+|---|---|---|
+| FASTA | the genome sequence | the text being searched |
+| GTF | exons, transcripts, genes | known splice junctions + gene models |
+| **Index** | a precomputed search structure | the difference between hours and seconds |
+
+Next: how STAR builds and uses the index.
+
+---
+
+### 🖥️ Colab Session — Start the Index
+
+::: {.part}
+<div class="label">Start the index now</div>
+
+- Run the `genomeGenerate` cell **in the background**.
+- Then `tail -f data/star_index/Log.out` once, to prove it is alive.
+- **Do not wait.** It takes ~25 min on 2 vCPUs; we will spend exactly that long on the next slides.
+:::
+
+```bash
+STAR --runMode genomeGenerate \
+     --genomeDir data/star_index \
+     --genomeFastaFiles data/ref/Homo_sapiens.GRCh38.dna.primary_assembly.sub.fa \
+     --sjdbGTFfile data/gtf/Homo_sapiens.GRCh38.sub.gtf \
+     --sjdbOverhang 149 --genomeSAindexNbases 12 \
+     --genomeSAsparseD 1 --runThreadN 2
+# full nohup ... & command is in the notebook
+```
+
+---
+
+### Index — Every Position, Sorted
+
+:::: {.columns}
+
+::: {.column width="62%"}
+![](../_assets/suffix_tails.png){fig-align="center" width="100%"}
+:::
+
+::: {.column width="38%"}
+- **One row per position**: the letters from that position to the end.
+
+Ours: 181 Mb → **180 million rows**, built once by `genomeGenerate`.
+:::
+
+::::
+
+---
+
+### Index — Sorted by Letters
+
+:::: {.columns}
+
+::: {.column width="62%"}
+![](../_assets/suffix_sorted.png){fig-align="center" width="100%"}
+:::
+
+::: {.column width="38%"}
+- **Sorted by letters**, the **start** column jumps around. That list is the index.
+- The first letter picks the block, the next letter narrows it.
+:::
+
+::::
+
+---
+
+### Index — Lookup, Not Scan
+
+Read `GTACGT` against the sorted list: one pass, narrowed at every letter.
+
+![](../_assets/suffix_lookup.png){fig-align="center" width="100%"}
+
+That is why STAR aligns 5,000 read pairs in **23 s**, not hours.
+
+---
+
+### Index — The Cost: RAM
+
+The list is held in RAM, whole, for the entire run.
+
+| reference | index on disk |
+|---|---|
+| 181 Mb (chr17/21/22) | **1.7 GB** |
+| whole genome (3.1 Gb) | ~28 GB |
+
+:::: {.columns}
+
+::: {.column width="50%"}
+- The letters are cheap: **189 MB**.
+- The **positions** are the heavy part: **1.4 GB**.
+:::
+
+::: {.column width="50%"}
+`--genomeSAsparseD` trades memory for lookup speed:
+
+- `1` — store every position: measured **1.4 GB** (our run)
+- `2` — store every second: measured **638 MB**, slower lookup
+:::
+
+::::
+
+---
+
+### Seed — The Longest Exact Match
+
+:::: {.columns}
+
+::: {.column width="44%"}
+![](../_assets/star_step1.png){fig-align="center" width="100%"}
+
+<div class="credit">HBC Intro-to-RNA-seq, CC BY 4.0 — adapted from STAR Fig. 1</div>
+:::
+
+::: {.column width="56%"}
+STAR takes the read and finds the longest sequence that matches the reference **exactly** — the **maximal mappable prefix (MMP)**, called **seed1**.
+
+Everything past seed1 is left unmapped, for now.
+:::
+
+::::
+
+---
+
+### Seed — Searching Only the Unmapped Part
+
+:::: {.columns}
+
+::: {.column width="44%"}
+![](../_assets/star_step2.png){fig-align="center" width="100%"}
+
+<div class="credit">HBC Intro-to-RNA-seq, CC BY 4.0 — adapted from STAR Fig. 1</div>
+:::
+
+::: {.column width="56%"}
+STAR then searches **only the unmapped part** of the read and finds its MMP: **seed2**.
+
+seed2 lands far downstream, between a **donor** and an **acceptor** site — the two ends of an intron. The gap between seed1 and seed2 is the intron this read spliced over.
+
+Searching one unmapped piece at a time is what makes STAR fast.
+:::
+
+::::
+
+---
+
+### Seed — Unique, Not Long
+
+A seed does not have to be long to be useful. It only has to be **unique enough** to anchor the search.
+
+A seed that appears everywhere anchors nothing: STAR only uses seeds that map to fewer than **10,000** places in the genome (`--seedMultimapNmax 10000`, STAR's default, which we left alone).
+
+---
+
+### Extend — When Nothing Matches Exactly
+
+:::: {.columns}
+
+::: {.column width="44%"}
+![](../_assets/star_step3.png){fig-align="center" width="85%"}
+
+<div class="credit">HBC Intro-to-RNA-seq, CC BY 4.0 — adapted from STAR Fig. 1</div>
+:::
+
+::: {.column width="56%"}
+If the rest of the read has no exact match — a mismatch, an indel, a low-quality base — the previous seeds are **extended**, base by base, scoring every base added.
+
+The red bar is a mismatch accepted during extension.
+:::
+
+::::
+
+---
+
+### Extend — The Soft Clip
+
+:::: {.columns}
+
+::: {.column width="44%"}
+![](../_assets/star_step4.png){fig-align="center" width="100%"}
+
+<div class="credit">HBC Intro-to-RNA-seq, CC BY 4.0 — adapted from STAR Fig. 1</div>
+:::
+
+::: {.column width="56%"}
+When extension does not give a good alignment, the end of the read is **soft clipped**: adapter, poor quality, or contaminating sequence.
+
+The clipped bases are not thrown away: they stay in the record, marked `S` in the CIGAR, outside the aligned blocks.
+:::
+
+::::
+
+---
+
+### Stitch — Clustering and Scoring
+
+:::: {.columns}
+
+::: {.column width="44%"}
+![](../_assets/star_step5.png){fig-align="center" width="100%"}
+
+<div class="credit">HBC Intro-to-RNA-seq, CC BY 4.0 — adapted from STAR Fig. 1</div>
+:::
+
+::: {.column width="56%"}
+Seeds are clustered around **anchor seeds** — seeds that map to one place only — then stitched into one alignment, scored by mismatches, indels, and gaps.
+
+The dashed line in the stitched read is the intron.
+
+::: {.callout-important}
+Stitching is what makes STAR **splice-aware**. 
+
+A DNA aligner would stop at the exon boundary; STAR starts a second search.
+:::
+:::
+
+::::
+
+---
+
+### Stitch — Crossing an Exon Boundary
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+![A real spliced record: 110M, a 7,018 bp intron, 40M](../_assets/stitch_cigar.png){fig-align="center" width="100%"}
+
+:::
+
+::: {.column width="30%"}
+
+| piece | meaning |
+|---|---|
+| `110M` | 110 bp aligned to exon 1 |
+| `7018N` | 7,018 bp skipped — an intron |
+| `40M` | 40 bp aligned to exon 2 |
+
+- the read never loses bases; the **genome**
+  skips them
+
+- `N` is RNA-seq's signature
+
+:::
+
+::::
+
+---
+
+### Stitch — Annotated vs Novel Junctions
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+![An annotated junction, flanked by 149 bp; a novel junction needing 8 bp](../_assets/stitch_junctions.png){fig-align="center" width="100%"}
+
+:::
+
+::: {.column width="30%"}
+
+| | annotated | novel |
+|---|---|---|
+| source | GTF, baked into the index | found by the reads |
+| cost | cheap, already known | must earn its place |
+| control | `--sjdbGTFfile` | `--alignSJoverhangMin 8` |
+| trust | high | lower, needs support |
+
+:::
+
+::::
+
+::: {.small .muted}
+Known junctions are the difference between a fast alignment and a search
+through every possible intron. `--sjdbOverhang` = read length − 1 = 149.
+:::
+
+---
+
+### The Flags, Mapped to the Algorithm
+
+![](../_assets/flags_map.png){fig-align="center" width="100%"}
+
+---
+
+### The Flags We Set
+
+| flag | value | what it controls |
+|---|---|---|
+| `--genomeSAindexNbases` | 12 | lookup prefix; default 14 segfaults |
+| `--genomeSAsparseD` | 1 | dense suffix array: more RAM, faster |
+| `--sjdbGTFfile` | GTF | known junctions in the index |
+| `--sjdbOverhang` | 149 | exon sequence flanking each junction |
+| `--outFilterMultimapNmax` | 20 | maximum loci reported per read |
+| `--outFilterType` | `BySJout` | junction-consistency filter |
+| `--outSAMtype` | `BAM SortedByCoordinate` | sorted output, ready to index |
+| `--alignSJoverhangMin` | 8 | minimum overhang at a novel junction (default 5) |
+| `--alignSJDBoverhangMin` | 1 | minimum overhang at an annotated junction (default 3) |
+
+::: {.small .muted}
+`BySJout` is a junction-consistency filter, **not** a uniqueness filter. A read
+can be unique and still be filtered if its junction is implausible.
+:::
+
+---
+
+### 🎯 Flags Are Two Decisions
+
+<div class="quote">
+The index decides what the aligner can find. The run decides what the file reports.
+</div>
+
+- **At index build** — prefix 12, sparse 1, junctions from the GTF, 149 bp of
+  flanking exon: four choices about what is visible at all.
+- **At the run** — 20 loci per read, `BySJout`, overhang minimums 8 and 1,
+  sorted BAM: four choices about what survives into the file.
+
+::: {.callout-important}
+The flags you did **not** set are decisions too. `--seedMultimapNmax 10000` is
+STAR’s default, so every stitch step that maps fewer than 10,000 places is
+allowed. `--runThreadN 16` is not a default: it is your machine.
+:::
+
+---
+
+### 🖥️ Colab Session — Align the Reads
+
+::: {.part}
+<div class="label">Build check → alignment</div>
+
+- `tail data/star_index/Log.out` and `ls -lh data/star_index` — confirm the build finished.
+- Run the alignment cell.
+- Watch `sample.Log.progress.out` while it runs (~83 s).
+- Open `sample.Log.final.out` and leave it on screen.
+
+**Come back when the final log is generated.** We will read it together.
+:::
+
+---
+
+## 🧾 4. Reading a BAM
+
+::: {.agenda data-section="4"}
+:::
+
+---
+
+### SAM, BAM, CRAM
+
+| Format | What it is | When you meet it |
+|---|---|---|
+| **SAM** | plain text, one line per alignment | debugging, `samtools view` |
+| **BAM** | binary, compressed, indexable | the working format |
+| **CRAM** | reference-compressed | long-term archives |
+
+::: {.callout-note}
+BAM is the **interchange format**: IGV reads it, featureCounts reads it, GATK reads it, Space Ranger writes it. Learn one, and the rest of the course can read the file.
+:::
+
+---
+
+### The Header Is the Provenance
+
+```text
+@HD  VN:1.6  SO:coordinate
+@SQ  SN:17  LN:83257441
+@SQ  SN:21  LN:46709983
+@SQ  SN:22  LN:50818468
+@PG  ID:STAR  PN:STAR  VN:2.7.11b
+     CL:STAR --runMode alignReads --genomeDir data/star_index ...
+```
+
+- `@HD` — file format and sort order.
+- `@SQ` — the reference dictionary: names and lengths.
+- `@PG` — the **exact command** that made the file.
+
+::: {.callout-important}
+The BAM remembers how it was made. That is reproducibility you do not have to reconstruct from memory.
+:::
+
+---
+
+### QNAME and FLAG
+
+<table class="rec">
+<tr><th class="key">QNAME</th><th class="key">FLAG</th><th class="fade">RNAME</th><th class="fade">POS</th><th class="fade">MAPQ</th><th class="fade">CIGAR</th><th class="fade">RNEXT</th><th class="fade">PNEXT</th><th class="fade">TLEN</th><th class="fade">SEQ</th><th class="fade">QUAL</th><th class="fade">tags</th></tr>
+<tr><td class="key">SRR8836894.3781</td><td class="key">99</td><td class="fade">17</td><td class="fade">79100</td><td class="fade">255</td><td class="fade">110M7018N40M</td><td class="fade">=</td><td class="fade">79158</td><td class="fade">7225</td><td class="fade">GGCACAATGGCT…</td><td class="fade">AAFFFJJFAAJ&lt;…</td><td class="fade">NH:i:1 AS:i:282 …</td></tr>
+</table>
+
+- `QNAME` is the read's name. Mates share it: `SRR8836894.3781` appears
+  twice in our BAM, once per end of the pair.
+- `FLAG` is a **sum of bits**: 99 = 1 + 2 + 32 + 64. Paired, proper pair,
+  mate on the forward strand, this record is read 1.
+- 300 records at 99, 300 at 147, out of 1,472. `FLAG` gets its own slide.
+
+---
+
+### FLAG, Decoded
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+![Four flags from our BAM, decomposed into the bits that sum to them](../_assets/bam_flag.png){fig-align="center" width="100%"}
+
+:::
+
+::: {.column width="30%"}
+
+- the bits **sum** to the number: 99 = 1 + 2 + 32 + 64
+
+- 4, 8: *unmapped, no mate* — special cases;
+  512, 1024: secondary, duplicate
+
+- 2, 4, 8, 512, 1024 are mutually exclusive;
+  1, 16, 32, 64, 128 combine freely
+
+:::
+
+::::
+
+::: {.small .muted}
+99 and 147 are the normal pair, and they are exactly half of our BAM:
+300 + 300. If you remember two numbers, remember those.
+:::
+
+---
+
+### RNAME and POS
+
+<table class="rec">
+<tr><th class="fade">QNAME</th><th class="fade">FLAG</th><th class="key">RNAME</th><th class="key">POS</th><th class="fade">MAPQ</th><th class="fade">CIGAR</th><th class="fade">RNEXT</th><th class="fade">PNEXT</th><th class="fade">TLEN</th><th class="fade">SEQ</th><th class="fade">QUAL</th><th class="fade">tags</th></tr>
+<tr><td class="fade">SRR8836894.3781</td><td class="fade">99</td><td class="key">17</td><td class="key">79100</td><td class="fade">255</td><td class="fade">110M7018N40M</td><td class="fade">=</td><td class="fade">79158</td><td class="fade">7225</td><td class="fade">GGCACAATGGCT…</td><td class="fade">AAFFFJJFAAJ&lt;…</td><td class="fade">NH:i:1 AS:i:282 …</td></tr>
+</table>
+
+- `RNAME` is the contig as STAR wrote it: `17`, not `chr17`.
+- `POS` is 1-based, the leftmost **aligned** base: `79100`.
+- With a spliced CIGAR, `POS` is the left end of the *first* block. This
+  record ends at `86267`; `POS` + read length is not the end.
+
+---
+
+### MAPQ
+
+<table class="rec">
+<tr><th class="fade">QNAME</th><th class="fade">FLAG</th><th class="fade">RNAME</th><th class="fade">POS</th><th class="key">MAPQ</th><th class="fade">CIGAR</th><th class="fade">RNEXT</th><th class="fade">PNEXT</th><th class="fade">TLEN</th><th class="fade">SEQ</th><th class="fade">QUAL</th><th class="fade">tags</th></tr>
+<tr><td class="fade">SRR8836894.3781</td><td class="fade">99</td><td class="fade">17</td><td class="fade">79100</td><td class="key">255</td><td class="fade">110M7018N40M</td><td class="fade">=</td><td class="fade">79158</td><td class="fade">7225</td><td class="fade">GGCACAATGGCT…</td><td class="fade">AAFFFJJFAAJ&lt;…</td><td class="fade">NH:i:1 AS:i:282 …</td></tr>
+</table>
+
+- `MAPQ` answers: *how much do you trust this placement?*
+- 255 means one place in the genome. 1,106 of our 1,230 primary records
+  are 255.
+- 48 records are `MAPQ 3`, 76 are `MAPQ 1` — they fit in more than one
+  place, and STAR is telling you.
+- A low `MAPQ` is not a bad read. It is an honest read.
+
+::: {.small .muted}
+`MAPQ` gets the next slide, with the distribution.
+:::
+
+---
+
+### MAPQ Distribution
+
+:::: {.columns}
+
+::: {.column width="65%"}
+
+![MAPQ distribution in our BAM: 1,106 primary records at 255, 124 below](../_assets/bam_mapq.png){fig-align="center" width="100%"}
+
+:::
+
+::: {.column width="35%"}
+
+| `MAPQ` | measured in our BAM |
+|---|---|
+| **255** | **one place** — 1,106 primary records |
+| 124 records below | shown in the figure |
+
+- 124 primary records are lower than 255: 48 at `MAPQ 3`, 76 at `MAPQ 1`
+
+- `Log.final.out` counts them: 553 uniquely mapped (11.06%), 62 mapped
+  to multiple loci (1.24%)
+
+:::
+
+::::
+
+::: {.small .muted}
+Low `MAPQ` is honesty, not failure: the read fits in more than one place,
+and STAR is telling you so. The `NH` tag, at the end of the record, is
+where STAR writes that number down.
+:::
+
+---
+
+### CIGAR
+
+<table class="rec">
+<tr><th class="fade">QNAME</th><th class="fade">FLAG</th><th class="fade">RNAME</th><th class="fade">POS</th><th class="fade">MAPQ</th><th class="key">CIGAR</th><th class="fade">RNEXT</th><th class="fade">PNEXT</th><th class="fade">TLEN</th><th class="fade">SEQ</th><th class="fade">QUAL</th><th class="fade">tags</th></tr>
+<tr><td class="fade">SRR8836894.3781</td><td class="fade">99</td><td class="fade">17</td><td class="fade">79100</td><td class="fade">255</td><td class="key">110M7018N40M</td><td class="fade">=</td><td class="fade">79158</td><td class="fade">7225</td><td class="fade">GGCACAATGGCT…</td><td class="fade">AAFFFJJFAAJ&lt;…</td><td class="fade">NH:i:1 AS:i:282 …</td></tr>
+</table>
+
+- `110M7018N40M`: 110 aligned, 7,018 skipped, 40 aligned.
+- `N` is the intron. The genome jumps; the read loses nothing.
+- Reference span `79100–86267`, measured from the record. `CIGAR` gets its
+  own slide, with the figure.
+
+---
+
+### CIGAR, Decoded
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+![A spliced record: 110M, then a 7,018 bp gap, then 40M](../_assets/bam_cigar.png){fig-align="center" width="100%"}
+
+:::
+
+::: {.column width="30%"}
+
+- `M` aligned · `I` insert in read · `D` delete from
+  reference · `N` intron · `S` soft-clip
+
+- `5M10I` = five aligned, ten inserted: **an insertion**
+
+- `S` bases are in the `SEQ` but not counted in `POS`
+
+:::
+
+::::
+
+::: {.callout-important}
+`N` is not a deletion. The read did not lose 7,018 bases — the **genome**
+skips them. That is a spliced alignment.
+:::
+
+**You will see this arc in IGV, Section 5.**
+
+---
+
+### RNEXT and PNEXT
+
+<table class="rec">
+<tr><th class="fade">QNAME</th><th class="fade">FLAG</th><th class="fade">RNAME</th><th class="fade">POS</th><th class="fade">MAPQ</th><th class="fade">CIGAR</th><th class="key">RNEXT</th><th class="key">PNEXT</th><th class="fade">TLEN</th><th class="fade">SEQ</th><th class="fade">QUAL</th><th class="fade">tags</th></tr>
+<tr><td class="fade">SRR8836894.3781</td><td class="fade">99</td><td class="fade">17</td><td class="fade">79100</td><td class="fade">255</td><td class="fade">110M7018N40M</td><td class="key">=</td><td class="key">79158</td><td class="fade">7225</td><td class="fade">GGCACAATGGCT…</td><td class="fade">AAFFFJJFAAJ&lt;…</td><td class="fade">NH:i:1 AS:i:282 …</td></tr>
+</table>
+
+- `RNEXT` is the mate's contig. `=` means *the same chromosome as this
+  record*.
+- `PNEXT` is the mate's `POS`: `79158`, 58 bases to the right.
+- The mate is flag `147`, `52M7018N97M1S`, ending `86324`. Same read name,
+  same intron, opposite end of the fragment.
+
+---
+
+### TLEN
+
+<table class="rec">
+<tr><th class="fade">QNAME</th><th class="fade">FLAG</th><th class="fade">RNAME</th><th class="fade">POS</th><th class="fade">MAPQ</th><th class="fade">CIGAR</th><th class="fade">RNEXT</th><th class="fade">PNEXT</th><th class="key">TLEN</th><th class="fade">SEQ</th><th class="fade">QUAL</th><th class="fade">tags</th></tr>
+<tr><td class="fade">SRR8836894.3781</td><td class="fade">99</td><td class="fade">17</td><td class="fade">79100</td><td class="fade">255</td><td class="fade">110M7018N40M</td><td class="fade">=</td><td class="fade">79158</td><td class="key">7225</td><td class="fade">GGCACAATGGCT…</td><td class="fade">AAFFFJJFAAJ&lt;…</td><td class="fade">NH:i:1 AS:i:282 …</td></tr>
+</table>
+
+- `TLEN 7225` is the **fragment**: leftmost start `79100` to rightmost
+  end `86324`, counted across the intron.
+- The sign is read–mate order: `+7225` on flag 99, `-7225` on flag 147.
+- Not the gap between the two `POS` — `79158 - 79100` is 58. `TLEN` is
+  what library prep calls fragment size.
+
+---
+
+### SEQ and QUAL
+
+<table class="rec">
+<tr><th class="fade">QNAME</th><th class="fade">FLAG</th><th class="fade">RNAME</th><th class="fade">POS</th><th class="fade">MAPQ</th><th class="fade">CIGAR</th><th class="fade">RNEXT</th><th class="fade">PNEXT</th><th class="fade">TLEN</th><th class="key">SEQ</th><th class="key">QUAL</th><th class="fade">tags</th></tr>
+<tr><td class="fade">SRR8836894.3781</td><td class="fade">99</td><td class="fade">17</td><td class="fade">79100</td><td class="fade">255</td><td class="fade">110M7018N40M</td><td class="fade">=</td><td class="fade">79158</td><td class="fade">7225</td><td class="key">GGCACAATGGCT…</td><td class="key">AAFFFJJFAAJ&lt;…</td><td class="fade">NH:i:1 AS:i:282 …</td></tr>
+</table>
+
+- `SEQ` is the read, 150 bases. It includes bases the aligner did not
+  match: the mate's `52M7018N97M1S` aligns 149 and **soft-clips 1**.
+
+::: {.small .muted}
+- `QUAL` is one character per base, same length as `SEQ`:
+  `# ) - 7 < A F J` in our BAM.
+- Phred: character − 33, so `#` is Q2, `J` is Q41.
+:::
+
+---
+
+### The STAR Tags
+
+<table class="rec">
+<tr><th class="fade">QNAME</th><th class="fade">FLAG</th><th class="fade">RNAME</th><th class="fade">POS</th><th class="fade">MAPQ</th><th class="fade">CIGAR</th><th class="fade">RNEXT</th><th class="fade">PNEXT</th><th class="fade">TLEN</th><th class="fade">SEQ</th><th class="fade">QUAL</th><th class="key">tags</th></tr>
+<tr><td class="fade">SRR8836894.3781</td><td class="fade">99</td><td class="fade">17</td><td class="fade">79100</td><td class="fade">255</td><td class="fade">110M7018N40M</td><td class="fade">=</td><td class="fade">79158</td><td class="fade">7225</td><td class="fade">GGCACAATGGCT…</td><td class="fade">AAFFFJJFAAJ&lt;…</td><td class="key">NH:i:1 AS:i:282 …</td></tr>
+</table>
+
+- `NH:i:1` — the number of loci STAR found. This is why `MAPQ` drops:
+  `NH:i:2` records carry `MAPQ 3`, `NH:i:3` and `NH:i:4` carry `MAPQ 1`.
+- `AS:i:282` — STAR's alignment score for this record.
+- `HI:i:1` — hard-clip count STAR records for the read.
+- `nM:i:7` — STAR's own mismatch-related count. Comparing aligned bases
+  to `chr17.fa` gives 4 mismatches, so `nM` is not just "mismatches";
+  read it as STAR's count, not a base-by-base tally.
+
+::: {.small .muted}
+Tags come after the 11 mandatory fields, on the same line.
+`samtools view` prints them.
+:::
+
+---
+
+### Reading the Columns
+
+| what you ask | column | example |
+|---|---|---|
+| which read? | `QNAME` | `SRR8836894.3781` |
+| pair? mate? mapped? | `FLAG` | `99` |
+| **where?** | `RNAME`, `POS` | `17`, `79100` |
+| **how sure?** | `MAPQ` | `255` |
+| **what shape?** | `CIGAR` | `110M7018N40M` |
+| bases, quality | `SEQ`, `QUAL` | 150 letters, Phred |
+| mate position | `RNEXT`, `PNEXT` | `=`, `79158` |
+| fragment length | `TLEN` | `7225` |
+
+---
+
+### Sort, Index, `.bai`
+
+1. **Coordinate sort** — records ordered by chromosome and position.
+2. **Index** — a lookup table from region to file offset.
+3. **Random access** — IGV and `samtools view file region` become instant.
+
+```bash
+samtools index sample.Aligned.sortedByCoord.out.bam
+```
+
+::: {.callout-important}
+`samtools idxstats` and region queries need the `.bai`. Without it, they fail with “random alignment retrieval only works for indexed BAMs.” Build the index; do not work around it.
+:::
+
+---
+
+### What STAR Writes
+
+| File | What it is | Use today |
+|---|---|---|
+| `*.Aligned.sortedByCoord.out.bam` | sorted alignments | yes |
+| `*.Log.final.out` | summary metrics | **yes** |
+| `*.Log.out` | every parameter and step | debugging |
+| `*.Log.progress.out` | live progress | while it runs |
+| `*.SJ.out.tab` | splice junctions | **yes** |
+| `_STARtmp/` | temporary sort files | delete after success |
+
+::: {.callout-note}
+Three files carry the lecture: the **BAM** (evidence), `Log.final.out` (the aligner’s opinion), and `SJ.out.tab` (where the introns are).
+:::
+
+---
+
+### 🧰 Also in a Real Pipeline
+
+| Flag | What it buys you |
+|---|---|
+| `--readFilesCommand zcat` | align `.fastq.gz` directly — no manual decompression |
+| `--outReadsUnmapped Fastx` | write the unmapped reads, so you can BLAST them and find contamination |
+| `--quantMode GeneCounts` | STAR counts per gene itself — an alternative to featureCounts |
+| `--outSAMattrRGline` | read groups, needed downstream by GATK (not by counting) |
+
+::: {.callout-note}
+None of these change the concepts. They are the difference between a notebook and a production pipeline.
+:::
+
+---
+
+### 🖥️ Colab Session — Dissect Your BAM
+
+::: {.part}
+<div class="label">Read the file you just made</div>
+
+- `samtools view -H` — find `@PG` and the exact command.
+- `samtools view | head -1` — decode FLAG, CIGAR, MAPQ.
+- `samtools view | awk '$6 ~ /N/' | head -3` — find a spliced read.
+- `samtools view -c` vs `samtools view -c -F 256` — how many records are primary?
+
+**Come back when you can decode one record out loud.**
+:::
+
+---
+
+### ✍️ Decode This Record
+
+<div class="record"><span class="hl2">SRR8836894.3116</span>  <span class="hl">99</span>  17  1875710  <span class="hl">255</span>  <span class="hl">84M1418N66M</span>  =  1878996  3589  <span class="hl">NH:i:1</span></div>
+
+1. Is this read paired?
+2. Is the pair proper?
+3. Which mate is it?
+4. How many loci does it have?
+5. Is it spliced — and how do you know?
+
+---
+
+### ✅ Decode This Record — Answers
+
+1. **Paired** — bit 1 is set.
+2. **Proper pair** — bit 2 is set.
+3. **First in pair** — bit 64; mate is reverse (bit 32).
+4. **One locus** — MAPQ 255; `NH:i:1`.
+5. **Spliced** — `1418N` in the CIGAR: 84 bp exon, 1,418 bp intron, 66 bp exon, and 84 + 66 = 150 bp of read.
+
+::: {.callout-tip}
+`TLEN 3589` spans from this read’s start (1,875,710) to its mate’s end (1,879,298). It is the insert size — which the next section will use as a QC check.
+:::
+
+---
+
+### 🎯 One Line, Five Claims
+
+<div class="quote">
+The record states where, how, and how well. Every claim can be re-derived from the columns.
+</div>
+
+- `17  1875710` is the **address**: chromosome, then 1-based start.
+- `99` is the **shape**: paired, proper, first of the pair, mate on the reverse.
+- `84M1418N66M` is the **geometry**: exon, intron, exon.
+- `255` with `NH:i:1` is the **confidence**: one locus, STAR’s top score.
+- `3589` is the **pair**: this read’s start to its mate’s end.
+
+::: {.callout-important}
+This record is `SRR8836894.3116` from our own STAR run, not an invented example. Its mate reads `147  17  1878996  255  66M153N84M`, the same pair seen from the other side.
+:::
+
+---
+
+## 📊 5. QC: Trust, but Verify
+
+::: {.agenda data-section="5"}
+:::
+
+---
+
+### Two Layers of QC
+
+<div class="grid2">
+<div class="card">
+<h4>The aligner’s opinion</h4>
+<p><code>Log.final.out</code> — how many reads mapped, how well, how many splices, how many were discarded.</p>
+</div>
+<div class="card">
+<h4>The evidence</h4>
+<p>The BAM itself — <code>flagstat</code>, <code>idxstats</code>, MAPQ, insert size, coverage. What actually landed.</p>
+</div>
+</div>
+
+**Five questions:**
+
+1. How many reads made it?
+2. Where did they go?
+3. How well did they align?
+4. Are the pairs sane?
+5. Is the coverage believable?
+
+---
+
+### `Log.final.out`, Annotated
+
+| Field | Ours | What it tells you |
+|---|---|---|
+| Number of input reads | 5,000 | fragments in |
+| Uniquely mapped reads % | **11.06%** | the headline number |
+| % of reads mapped to multiple loci | 1.24% | repeats / ambiguity |
+| % of reads unmapped: too short | small | over-trimming signal |
+| Number of splices: Total | **443** | how much splicing was found |
+| Mismatch rate per base | see log | wrong reference / contamination signal |
+
+::: {.callout-important}
+Read it top to bottom. **Every line is a failure mode** with a number attached.
+:::
+
+---
+
+### The Denominator Trap
+
+```text
+5,000 input fragments
+  × (11.06% unique + 1.24% multi) = 615 fragments
+  × 2 mates                        = 1,230 primary records
+  + 242 secondary                  = 1,472 records
+```
+
+`samtools flagstat` says: **1,472 total · 1,230 primary · 242 secondary**.
+
+::: {.callout-important}
+STAR counts **fragments** (pairs). `flagstat` counts **records** (mates). 11% of 5,000 is not 553 records — it is 553 **fragments**, which is 1,106 **mates**, plus multi-mappers.
+:::
+
+---
+
+### `flagstat`, Annotated
+
+| Line | Ours | Meaning |
+|---|---|---|
+| in total | 1,472 | every record in the BAM |
+| primary | 1,230 | one per fragment |
+| secondary | 242 | extra loci for multi-mappers |
+| duplicates | 0 | not marked; meaningless at this depth |
+| properly paired | 1,230 (100%) | over **primary**, not input |
+| read1 / read2 | 615 / 615 | the pair is balanced |
+
+::: {.callout-note}
+100% properly paired sounds perfect because it is measured over the reads that **made it into the BAM**. It says nothing about the 89% that did not map.
+:::
+
+---
+
+### `idxstats` and the 3-Chromosome Reality
+
+| Contig | Length | Mapped |
+|---|---|---|
+| `17` | 83,257,441 | **830** |
+| `21` | 46,709,983 | **378** |
+| `22` | 50,818,468 | **264** |
+| `*` | — | 0 |
+
+<div class="big center">830 + 378 + 264 = 1,472</div>
+
+::: {.callout-important}
+The arithmetic closes against `flagstat`. That is the single best end-to-end check in the notebook: if these do not match, one of your assumptions is wrong.
+:::
+
+---
+
+### MAPQ: How Sure Are We?
+
+```bash
+samtools view sample.bam | cut -f5 | sort -n | uniq -c
+```
+
+Expect a **spike at 255** (unique) and a small tail at 0–3 (multi-mapping).
+
+- MAPQ 255 is STAR’s “unique” label — it is not a probability.
+- A large 0–3 tail means repeats or rRNA.
+- MAPQ 0 can also mean “unmapped” — check FLAG bit 4.
+
+::: {.callout-note}
+MAPQ answers “how many places could this read come from?” — not “how correct is this base?”
+:::
+
+---
+
+### Insert Size, Coverage, Bias
+
+<div class="grid2">
+<div class="card">
+<h4>Insert size</h4>
+<p><code>samtools stats | grep "insert size"</code>. A sharp peak is healthy. A bizarre spread means a library or pairing problem.</p>
+</div>
+<div class="card">
+<h4>5′ / 3′ bias</h4>
+<p>Coverage should be even across the gene. A slope means degraded RNA or a library-prep bias.</p>
+</div>
+<div class="card">
+<h4>rRNA / chrM</h4>
+<p>A few genes dominating the reads usually means rRNA contamination. chrM is absent from our reference, so we cannot see it here.</p>
+</div>
+<div class="card">
+<h4>Strand bias</h4>
+<p>Reads should not pile onto one strand unless the protocol is stranded. A strong skew means the wrong library chemistry.</p>
+</div>
+</div>
+
+::: {.small .muted}
+At 5,000 pairs these are concepts, not measurements. Qualimap and RNA-SeQC do them properly at real depth.
+:::
+
+---
+
+### Red Flags
+
+| Symptom | Usual cause | First check |
+|---|---|---|
+| Unique rate very low | wrong reference / contig naming / rRNA | `@SQ` names vs FASTA/GTF |
+| Many “too many loci” | repeats, rRNA, short reads | `--outFilterMultimapNmax`, FastQC |
+| Mismatch > 2–3% | wrong species/assembly, contamination | reference build |
+| Many “too short” | over-trimming | trim settings, read length |
+| 5′/3′ bias | degraded RNA / library | RIN, coverage plot |
+| Duplicates > 50% | PCR over-amplification | only meaningful at real depth |
+
+::: {.callout-note}
+**One number is never a diagnosis.** The red flag is a pattern across logs, not a single threshold.
+:::
+
+---
+
+
+### Is 11% Bad?
+
+<div class="quote">
+No. The denominator is the reference, not the sample.
+</div>
+
+- A whole-genome RNA-seq run expects **80–90%** unique.
+- Here, only **5.85%** of the genome is indexed — and it is gene-dense.
+- The honest statement for a methods section: *“11.1% of reads mapped uniquely to the three-chromosome reference; the remaining reads are outside the indexed contigs.”*
+
+**Tools for real data:** Qualimap (5′/3′, duplication, coverage), MultiQC (aggregates logs), IGV (eyes on a locus).
+
+---
+
+### 👁️ Eyes on a Locus — Coverage
+
+![](../_assets/igv.png){fig-align="center" width="94%"}
+
+::: {.columns}
+::: {.column width="48%"}
+**chr21:8,210,178–8,219,821** — 9,645 bp, **74 records**.
+
+- Coverage arrives in islands. Peak depth **13×**.
+- **12 records** carry soft clips: `149M1S`, `88M62S`, `114M36S`.
+:::
+::: {.column width="52%"}
+- **2** annotated exons in the window. **7 of 74** reads start inside one.
+- The other 67 land off features — `Unassigned_NoFeatures` seen with eyes.
+
+A log gives the average. **The locus shows what the average is hiding.**
+:::
+:::
+
+---
+
+### 👁️ A Spliced Locus — IGV
+
+![](../_assets/igv_splice.png){fig-align="center" width="94%"}
+
+::: {.columns}
+::: {.column width="48%"}
+**chr22:39,313,952–39,318,985** — gene **RPL3**, **14 records**, **7 junction arcs**.
+
+- Longest intron: **2,020 bp** at 39,315,458–39,317,478.
+- That junction has **4 uniquely-mapping** reads and **1 multi-mapping** read.
+:::
+::: {.column width="52%"}
+- Motifs: **5 GT/AG**, **1 GC/AG**, **1 AT/AC**.
+- Every arc here is annotated in the index. The arcs are the `N` in the CIGAR — you decoded one in Section 4.
+
+::: {.callout-note}
+**Load** BAM + `.bai` · FASTA · GTF. **Read** the arcs, not just the pileup.
+:::
+:::
+:::
+
+---
+
+### 🖥️ Colab Session — QC + Counts
+
+::: {.part}
+<div class="label">Verify, then count</div>
+
+- `samtools index` — build the `.bai`.
+- `samtools flagstat`, `idxstats`, `stats | grep "insert size"`.
+- MAPQ histogram.
+- **Reproduce 615 → 1,230 → 1,472** in a markdown cell.
+- `featureCounts` — then read the `.summary` rows, not just the matrix.
+
+**Come back when the arithmetic closes.**
+:::
+
+---
+
+### ✍️ Exercise A
+
+**2% uniquely mapped. 70% “too many loci.”**
+
+What is going on?
+
+1. the reads are too short to align
+2. the reads match many places in the genome
+3. the reference is missing contigs
+
+---
+
+### ✅ Exercise A — Answer
+
+**Option 2: the reads match many places in the genome.**
+
+Repeats or rRNA: many loci match, so STAR reports “too many loci”
+instead of guessing. Too-short reads are reported as “too short”, and a
+missing contig gives unmapped reads, not a loci warning.
+
+The wrong reference produces the same signature.
+
+---
+
+### ✍️ Exercise B
+
+**95% mapped. 40% mismatch rate.**
+
+What do you suspect?
+
+1. the library is duplicated
+2. soft-clipped bases are being counted as mismatches
+3. the reference does not match the reads
+
+---
+
+### ✅ Exercise B — Answer
+
+**Option 3: the reference does not match the reads.**
+
+40% mismatch means the reference is not the species, or not the assembly
+version, the reads came from. Duplicates do not raise the mismatch rate,
+and soft-clipped bases are not counted as mismatches.
+
+---
+
+### ✍️ Exercise C
+
+**Properly paired: 60%. Insert sizes huge.**
+
+What is broken?
+
+1. the library: fragments are long, pairing is off
+2. the aligner is missing introns
+3. `MAPQ` is too low
+
+---
+
+### ✅ Exercise C — Answer
+
+**Option 1: the library.**
+
+Long fragments and lost proper pairs are library prep and pairing. Look
+at the insert size distribution before you blame the aligner: missing
+introns show up in `CIGAR`, not in `FLAG`.
+
+---
+
+### ✍️ Exercise D
+
+**10% of all reads land on one small contig.**
+
+Most likely?
+
+1. that contig is the largest in the genome
+2. those reads are properly paired
+3. contamination, or a contig the aligner cannot resolve
+
+---
+
+### ✅ Exercise D — Answer
+
+**Option 3: contamination, or a contig the aligner cannot resolve.**
+
+A small contig carrying 10% of the reads is rRNA, adapter, or spike-in.
+It can also be a collapsed repeat: every copy maps to one place. Size and
+pairing do not explain a pile-up on a small contig.
+
+---
+
+## 🧮 6. From BAM to Counts
+
+::: {.agenda data-section="6"}
+:::
+
+---
+
+### What featureCounts Takes
+
+```bash
+featureCounts -p --countReadPairs -T 2 \
+  -t exon -g gene_id -a annotation.gtf \
+  -o counts.txt sample.bam
+```
+
+- the BAM is the input, the GTF is the question
+- `-t exon` is what to count, `-g gene_id` is what to report
+- `-p --countReadPairs` counts the pair, not the two reads
+
+---
+
+### Fragments, Not Reads
+
+- our BAM: 1,472 records, 1,230 primary alignments
+- featureCounts read it as **736 fragments**
+- **448 assigned (60.9%)** — that is the only number that becomes a count
+  in the matrix
+
+---
+
+### The Overlap Decision
+
+```text
+BAM ──► fragment ──► overlaps an exon? ──► gene_id
+                         │
+                         ├── no   → Unassigned_NoFeatures
+                         ├── many → Unassigned_Ambiguity
+                         └── multi → Unassigned_MultiMapping
+```
+
+::: {.callout-important}
+featureCounts’ own defaults, printed in its setting block: *Multimapping
+reads: not counted*, *Multi-overlapping reads: not counted*, *Min
+overlapping bases : 1*. A fragment that touches two genes is not split
+between them.
+:::
+
+---
+
+### Where the 736 Fragments Go
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+![featureCounts assignment summary, measured from our run](../_assets/fc_summary.png){fig-align="center" width="100%"}
+
+:::
+
+::: {.column width="30%"}
+
+- 448 assigned, 288 unassigned, 736 total
+
+- every unassigned fragment is named by cause: multi-mapping, ambiguity,
+  no features
+
+- `Unassigned_MappingQuality` is 0: STAR’s lowest `MAPQ` here is 1, and
+  the default `-q 0` filters nothing
+
+:::
+
+::::
+
+---
+
+### Strandedness Is a Choice: `-s`
+
+:::: {.columns}
+
+::: {.column width="62%"}
+
+![Same BAM, same GTF, only `-s` changed](../_assets/fc_stranded.png){fig-align="center" width="100%"}
+
+:::
+
+::: {.column width="38%"}
+
+- `-s 0` unstranded · `-s 1` forward · `-s 2` reverse
+
+- the simulated library is unstranded, so `-s 0` keeps 448 pairs
+
+- forcing `-s 1` gives 270 and `-s 2` gives 267: 40% of the data thrown
+  away
+
+:::
+
+::::
+
+::: {.callout-important}
+The wrong `-s` is the most common “my matrix looks wrong” bug. Check your
+library, not the tutorial you copied the command from.
+:::
+
+---
+
+### From 448 Pairs to a Matrix
+
+- rows: 6,661 genes, straight from the GTF
+- 253 rows have a non-zero count; the sample column sums to 448
+- `Chr` and `Start` list one entry per exon, separated by semicolons
+
+---
+
+### Read the Summary, Not Just the Matrix
+
+::: {.callout-note}
+The matrix is the numerator. **The summary is the diagnosis.** 183 + 74 + 31
+is not noise: it says multimapping, overlapping genes, intergenic sequence,
+in that order. If `Assigned` is low, the problem is usually alignment or
+annotation — not counting.
+:::
+
+---
+
+### 🎯 The One-Sentence Version
+
+<div class="quote">
+A FASTQ record knows its letters. It does not know where it came from.
+</div>
+
+- **Alignment** gives every read a genomic address: chromosome, position, strand.
+- **A BAM** stores that address, plus the shape and confidence of the match.
+- **QC** is the decision that the addresses are trustworthy enough to count.
+
+::: {.callout-important}
+Today is not “run a tool.” Today is **read what the tool produces** and decide whether to believe it.
+:::
+
+---
+
+### 📚 Sources & Licenses
+
+::: {.small}
+- **Aligner:** Dobin A, Davis CA, Schlesinger F, et al. *STAR: ultrafast universal RNA-seq aligner.* Bioinformatics 29(1):15–21, 2013. DOI 10.1093/bioinformatics/bts635.
+- **Seed / extension / stitching diagrams:** “Alignment with STAR”, *Introduction to RNA-seq on the O2 cluster*, Harvard Chan Bioinformatics Core — M. Mistry, B. Freeman, M. Piper. **CC BY 4.0.** Diagrams are adapted from the STAR paper.
+- **Mapping overview:** Galaxy Training Network, *Mapping* tutorial — J. Wolff, B. Batut, H. Koch. **CC BY 4.0.**
+- **Counter:** Liao Y, Smyth GK, Shi W. *featureCounts: an efficient general purpose program for assigning sequence reads to genomic features.* Bioinformatics, 2014. DOI 10.1093/bioinformatics/btt656.
+- **FastQC screen:** FastQC project, Babraham Institute.
+- **IGV screenshots** (`igv.png`, `igv_splice.png`): captured for this course from our own STAR BAM, on IGV (Broad Institute, MIT license), Human GRCh38/hg38 with the Ensembl subset GTF loaded.
+- **Every other figure in this deck was generated for this course** — the generator scripts are in `lecture-08/scripts/`. The `bam_*.png` and `fc_*.png` figures are measured from our own STAR run and
+our own featureCounts run, not drawn by hand.
+- **Data:** Ensembl GRCh38 subset (chr17, chr21, chr22) + simulated reads, and STAR’s own sample `Log.progress` files.
+:::
+
+---
+
+## 🚀 What's Next?
+### Input Data, Normalization & PCA — from count matrix to sample structure
+
+* **Input data**: the count matrix from `featureCounts` — genes × samples
+* **Normalization**: depth differs between samples; CPM, TPM, and DESeq2 size factors put them on one scale
+* **PCA**: log-transform, project. Replicates cluster; a batch shows up as one axis
+* **Real data**: QC plots, sample clustering, and the first batch effect you will have to explain
+
+::: {.callout-important}
+Everything downstream inherits the BAM. A mapping you did not verify
+becomes a PCA you cannot interpret.
+:::
+
+---
+
+## Thank You! {.center style="text-align: center; margin-top: 1.2em;"}
+
+<br>
+
+> *"A FASTQ record knows its letters. It does not know where it came from. Align the reads, and the features appear — exon, intron, gene, count."*
