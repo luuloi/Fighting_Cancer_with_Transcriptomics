@@ -99,9 +99,9 @@
 - Quizzes and homework: [Colab Notebook](https://colab.research.google.com/drive/1jnt1hra6XeeAz3QdFKONT9C9a3iXw7V1?usp=sharing).
 - [Lecture slides](https://mashxp.github.io/Spatial_Transcriptomics_Course/FCWT_2026/lecture-08/lecture-08_slides.html).
 - Youtube recording:
-  - Part 1: Processing.
+  - [Part 1](https://youtu.be/YpvOTaNcEzw?si=XvKusKP2Kxlg9avW).
   - [Part 2](https://www.youtube.com/live/oVkNUDqU1PU?si=8GL1u71SpoPKqebn).
-- Study notes: To be added (will be provided after Part 1 video finishes processing).
+- Study notes: [`lecture-08_study-notes`](./lecture-08/lecture-08_study-notes.md).
 
 ## MODULE III: Introduction to Single-cell RNA-seq
 
